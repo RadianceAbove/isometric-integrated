@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://b75gk8ln6fo8x"]
 
-[ext_resource type="PackedScene" uid="uid://db4kkprj1q8h5" path="res://iso_viewer.tscn" id="1_avmpd"]
+[ext_resource type="PackedScene" uid="uid://db4kkprj1q8h5" path="res://IsoNodes/iso_viewer.tscn" id="1_avmpd"]
 [ext_resource type="Script" uid="uid://cqiowf63v3oxk" path="res://test_view.gd" id="1_vkp0m"]
-[ext_resource type="Script" uid="uid://gm5yvkuu6qfc" path="res://iso_node.gd" id="2_vkp0m"]
-[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://iso_object.gd" id="3_cljhh"]
+[ext_resource type="Script" uid="uid://gm5yvkuu6qfc" path="res://IsoNodes/iso_node.gd" id="2_vkp0m"]
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://IsoNodes/iso_object.gd" id="3_cljhh"]
 [ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://isometric-sandbox-32x32/Sprite-0001.png" id="4_lv302"]
 [ext_resource type="Texture2D" uid="uid://bnlv36uiyohha" path="res://isometric-sandbox-32x32/Sprite-0001-Layer.png" id="5_fcd7g"]
-[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://iso_camera.gd" id="6_vrl5m"]
-[ext_resource type="Script" uid="uid://qpr206dlsxo2" path="res://iso_light.gd" id="8_cljhh"]
+[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://IsoNodes/iso_camera.gd" id="6_vrl5m"]
+[ext_resource type="Script" uid="uid://qpr206dlsxo2" path="res://IsoNodes/iso_light.gd" id="8_cljhh"]
 
 [node name="Control" type="Control" unique_id=443110852 node_paths=PackedStringArray("viewer", "coord_label", "color_swatch", "character")]
 layout_mode = 3

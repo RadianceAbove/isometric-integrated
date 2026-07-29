@@ -53,7 +53,7 @@ func get_image() -> Image:
 	var rd := RenderingServer.create_local_rendering_device()
 	
 	# Load GLSL shader
-	var shader_file := load("res://light_calc.glsl")
+	var shader_file := load("res://IsoNodes/light_calc.glsl")
 	var shader_spirv: RDShaderSPIRV = shader_file.get_spirv()
 	shader = rd.shader_create_from_spirv(shader_spirv)
 	
