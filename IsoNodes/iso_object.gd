@@ -13,6 +13,7 @@ var visible_points : Array[IsoPixel]
 var _points_cache : Array[Array] = []
 var _point_bounds_start = Vector3i.ZERO
 var _point_bounds_end = Vector3i.ZERO
+var _point_coords : PackedVector3Array
 
 class IsoPixel:
 	var parent : IsoObject
@@ -50,6 +51,7 @@ func _ready() -> void:
 	base_image = base_texture.get_image()
 	layer_image = layer_texture.get_image()
 	_points_cache.resize(base_image.get_width())
+	_point_coords.resize(base_image.get_width()*base_image.get_height())
 	for a in range(_points_cache.size()):
 		_points_cache[a] = []
 		_points_cache[a].resize(base_image.get_height())
@@ -70,6 +72,7 @@ func _ready() -> void:
 				visible_points.append(point)
 				solid_points.append(point)
 				_points_cache[x][y] = point
+				_point_coords[x+y*base_image.get_width()] = Vector3(pos)
 #				include_in_bounds(pos)
 	build_point_bounds()
 	update_bounds()
@@ -134,4 +137,18 @@ func line_intersections(start : Vector3i, end : Vector3i) -> Array[IsoPixel]:
 			arr.append_array(child.intersects_line(start,end))
 	
 	return arr
+	
+
+func get_tiles() -> Array:
+	var global_pos = get_global_position()
+	var out : Array = []
+	
+	out.append([])
+	out[0].append(global_pos)
+	out[0].append(_point_bounds_start)
+	out[0].append(_point_bounds_end)
+	out[0].append(base_image.get_data())
+	out[0].append(_point_coords)
+	
+	return out
 	

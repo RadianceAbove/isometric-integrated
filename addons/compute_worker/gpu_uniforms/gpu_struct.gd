@@ -88,6 +88,8 @@ func encode_struct(data: Array, init: bool = false) -> PackedByteArray:
 				arr.append_array(float_to_byte_array_8(data[data_index]))
 			TYPE_INT:
 				arr.append_array(int_to_byte_array_4(data[data_index]))
+			TYPE_PACKED_VECTOR4_ARRAY:
+				arr.append_array(data[data_index].to_byte_array())
 		
 		data_index += 1
 	
@@ -138,5 +140,12 @@ func decode_struct(data: PackedByteArray) -> Array:
 				var integer = byte_array_to_int(data.slice(offset, offset + 4))
 				arr.push_back(integer)
 				offset += 4
+			TYPE_PACKED_VECTOR4_ARRAY:
+				var in_arr : Array = []
+				for j in range(struct_data[i].size()):
+					var vec = byte_array_to_vec4(data.slice(offset, offset+32))
+					in_arr.push_back(vec)
+					offset + 32
+				arr.push_back(in_arr)
 				
 	return arr

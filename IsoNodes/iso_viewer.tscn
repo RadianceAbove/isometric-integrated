@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://qmcrer8tuku3" path="res://IsoNodes/iso_viewer.gd" id="1_bkv4w"]
 
+[sub_resource type="ImageTexture" id="ImageTexture_cljhh"]
+
 [node name="IsoViewer" type="TextureRect" unique_id=1816547597]
 offset_right = 40.0
 offset_bottom = 40.0
+texture = SubResource("ImageTexture_cljhh")
+expand_mode = 3
 script = ExtResource("1_bkv4w")

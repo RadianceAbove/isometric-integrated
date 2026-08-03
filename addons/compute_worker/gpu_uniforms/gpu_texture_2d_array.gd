@@ -101,4 +101,3 @@ func set_uniform_data(rd: RenderingDevice, image: Texture2DArray) -> void:
 		var layer_data = image.get_layer_data(layer).get_data()
 		images.push_back(layer_data)
 		rd.texture_update(data_rid, layer, layer_data)
-

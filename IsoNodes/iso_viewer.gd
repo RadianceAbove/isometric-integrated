@@ -1,15 +1,51 @@
 class_name IsoViewer extends TextureRect
 
 @export var camera : IsoCamera
+@export var world : IsoWorld
+var test_shader_file = preload("res://compute_example_2.glsl")
+var compute_worker_prefab = preload("res://iso_compute_worker.tscn")
+var compute_worker : ComputeWorker
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	texture = ImageTexture.new()
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	test_compute()
+	compute_worker = compute_worker_prefab.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
 	
+	## Initialize GPU variables
+	var camera_pos_uniform: GPU_Vector3i = compute_worker.get_uniform_by_alias("camera_pos")
+	camera_pos_uniform.data = camera.position
+	
+	var tile_count_uniform: GPU_Integer = compute_worker.get_uniform_by_alias("tile_count")
+	tile_count_uniform.data = world.solid_iso_nodes.size()
+	
+	#var tile_array: GPU_StructArray = compute_worker.get_uniform_by_alias("tile_arr")
+	#var tiles_in := get_tile_array()
+	#tile_array.data = tiles_in
+	
+	var im = Image.create_empty(camera.width,camera.height,false,Image.FORMAT_RGBAF)
+	var im_uniform : GPU_Image = compute_worker.get_uniform_by_alias("im",1)
+	im_uniform.data = im
+	im_uniform.image_size = Vector2i(camera.width,camera.height)
+	compute_worker.work_group_size = Vector3i(floor(float(camera.width)/8),floor(float(camera.height)/8),1)
+	
+	
+	
+	#var im_uniform: GPU_Texture2DArray = compute_worker.get_uniform_by_alias("im", 1)
+	#im_uniform.data = im
+	
+	compute_worker.initialize()
+	
+	test_compute()
+
+func get_tile_array() -> Array[Array]:
+	var tiles : Array[Array] = []
+	for obj in world.solid_iso_nodes:
+		tiles.append_array(obj.get_tiles())
+	return tiles
 
 func test_compute() -> void:
+	
 	# Create a local rendering device.
 	var rd := RenderingServer.create_local_rendering_device()
 	# Load GLSL shader
@@ -52,4 +88,9 @@ func get_pixel_at_position(pos : Vector2) -> IsoObject.IsoPixel:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	texture.set_image(camera.get_image())
+	compute_worker.set_uniform_data_by_alias(Image.create_empty(camera.width,camera.height,false,Image.FORMAT_RGBAF),"im",1,false)
+	compute_worker.set_uniform_data_by_alias(camera.position,"camera_pos",0,false)
+	compute_worker.set_uniform_data_by_alias(world.solid_iso_nodes.size(),"tile_count",0,false)
+	compute_worker.set_uniform_data_by_alias(get_tile_array(),"tile_arr",0,true)
+	
+	texture = ImageTexture.create_from_image(compute_worker.get_uniform_data_by_alias("im",1))

@@ -65,6 +65,3 @@ func get_uniform_data(rd: RenderingDevice) -> Vector2:
 func set_uniform_data(rd: RenderingDevice, vector: Vector2) -> void:
 	var sb_data = vec2_to_byte_array(vector)
 	rd.buffer_update(data_rid, 0 , sb_data.size(), sb_data)
-
-
-

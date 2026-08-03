@@ -63,9 +63,7 @@ func create_uniform() -> RDUniform:
 func get_uniform_data(rd: RenderingDevice) -> Image:
 	
 	var t_data = rd.texture_get_data(data_rid, 0)
-	var image = Image.new()
-	image.create_from_data(data.get_width(), data.get_height(), false, Image.FORMAT_RGBAF, t_data)
-	
+	var image = Image.create_from_data(data.get_width(), data.get_height(), false, Image.FORMAT_RGBAF, t_data)
 	return image
 
 

@@ -74,6 +74,3 @@ func get_uniform_data(rd: RenderingDevice) -> PackedVector3Array:
 func set_uniform_data(rd: RenderingDevice, array: PackedVector3Array) -> void:
 	var sb_data = vec3_array_to_byte_array(array)
 	rd.buffer_update(data_rid, 0 , sb_data.size(), sb_data)
-
-
-
