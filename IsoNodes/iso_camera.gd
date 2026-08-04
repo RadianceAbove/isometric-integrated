@@ -3,6 +3,8 @@ class_name IsoCamera extends IsoNode
 @export var width : int = 512
 @export var height : int = 512
 
+@export var cull_distance : int = 512
+
 @export var collection : IsoNode
 
 

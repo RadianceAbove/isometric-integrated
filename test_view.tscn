@@ -44,8 +44,9 @@ offset_top = 537.0
 offset_right = 53.0
 offset_bottom = 577.0
 
-[node name="IsoCollection" type="Node" parent="." unique_id=516792378]
+[node name="IsoCollection" type="Node" parent="." unique_id=516792378 node_paths=PackedStringArray("solid_iso_nodes")]
 script = ExtResource("3_lv302")
+solid_iso_nodes = [NodePath("IsoObject"), NodePath("IsoObject2")]
 metadata/_custom_type_script = "uid://dquv3r2giq3yf"
 
 [node name="IsoObject2" type="Node" parent="IsoCollection" unique_id=803959815]
@@ -59,6 +60,7 @@ metadata/_custom_type_script = "uid://cremdxhxparmk"
 script = ExtResource("3_cljhh")
 base_texture = ExtResource("4_lv302")
 layer_texture = ExtResource("5_fcd7g")
+position = Vector3i(19, 0, 0)
 metadata/_custom_type_script = "uid://cremdxhxparmk"
 
 [node name="IsoCamera" type="Node" parent="IsoCollection" unique_id=1731867194 node_paths=PackedStringArray("collection")]

@@ -16,8 +16,13 @@ func _ready() -> void:
 	var camera_pos_uniform: GPU_Vector3i = compute_worker.get_uniform_by_alias("camera_pos")
 	camera_pos_uniform.data = camera.position
 	
+	var cull_distance_uniform: GPU_Float = compute_worker.get_uniform_by_alias("cull_distance")
+	cull_distance_uniform.data = float(camera.cull_distance)
+	
 	var tile_count_uniform: GPU_Integer = compute_worker.get_uniform_by_alias("tile_count")
 	tile_count_uniform.data = world.solid_iso_nodes.size()
+	
+	compute_worker.get_uniform_by_alias("tile_arr").array_size = world.max_nodes
 	
 	#var tile_array: GPU_StructArray = compute_worker.get_uniform_by_alias("tile_arr")
 	#var tiles_in := get_tile_array()
@@ -90,6 +95,7 @@ func get_pixel_at_position(pos : Vector2) -> IsoObject.IsoPixel:
 func _process(_delta: float) -> void:
 	compute_worker.set_uniform_data_by_alias(Image.create_empty(camera.width,camera.height,false,Image.FORMAT_RGBAF),"im",1,false)
 	compute_worker.set_uniform_data_by_alias(camera.position,"camera_pos",0,false)
+	compute_worker.set_uniform_data_by_alias(camera.cull_distance,"cull_distance",0,false)
 	compute_worker.set_uniform_data_by_alias(world.solid_iso_nodes.size(),"tile_count",0,false)
 	compute_worker.set_uniform_data_by_alias(get_tile_array(),"tile_arr",0,true)
 	

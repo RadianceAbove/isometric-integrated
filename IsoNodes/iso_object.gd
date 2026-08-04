@@ -13,7 +13,8 @@ var visible_points : Array[IsoPixel]
 var _points_cache : Array[Array] = []
 var _point_bounds_start = Vector3i.ZERO
 var _point_bounds_end = Vector3i.ZERO
-var _point_coords : PackedVector3Array
+var _point_colors : PackedVector4Array
+var _point_coords : PackedVector4Array
 
 class IsoPixel:
 	var parent : IsoObject
@@ -52,6 +53,7 @@ func _ready() -> void:
 	layer_image = layer_texture.get_image()
 	_points_cache.resize(base_image.get_width())
 	_point_coords.resize(base_image.get_width()*base_image.get_height())
+	_point_colors.resize(base_image.get_width()*base_image.get_height())
 	for a in range(_points_cache.size()):
 		_points_cache[a] = []
 		_points_cache[a].resize(base_image.get_height())
@@ -62,17 +64,20 @@ func _ready() -> void:
 			#print("y: " + str(y))
 			#if x==1 and y==24:
 				#print("Break")
-			if not is_zero_approx(layer_image.get_pixel(x,y).a):
+			var col : Color = base_image.get_pixel(x,y)
+			if not is_zero_approx(col.a):
 				var pos = get_pixel_pos(Vector2i(x,y))
 				var point = IsoPixel.new()
 				point.parent = self
 				point.position = pos
-				point.color = base_image.get_pixel(x,y)
+				point.color = col
 				point.screenspace_offset = Vector2i(x,y) - origin_texture_coords
 				visible_points.append(point)
 				solid_points.append(point)
 				_points_cache[x][y] = point
-				_point_coords[x+y*base_image.get_width()] = Vector3(pos)
+				
+				_point_colors[x+y*base_image.get_width()] = Vector4(col.r,col.g,col.b,col.a)
+				_point_coords[x+y*base_image.get_width()] = Vector4(pos.x,pos.y,pos.z,0)
 #				include_in_bounds(pos)
 	build_point_bounds()
 	update_bounds()
@@ -90,7 +95,7 @@ func get_pixel_pos(pixel : Vector2i) -> Vector3i:
 	
 	# y scales twice as fast as x does
 	y *= 2
-	return Vector3i(x,y,z) + get_global_position()
+	return Vector3i(x,y,z) #+ get_global_position()
 
 # Get a pixel aligned in screen space with the given position
 func get_screenspace_pixels(pos : Vector3i) -> Array[IsoPixel]:
@@ -145,9 +150,10 @@ func get_tiles() -> Array:
 	
 	out.append([])
 	out[0].append(global_pos)
+	out[0].append(Vector3i(origin_texture_coords.x,origin_texture_coords.y,0))
 	out[0].append(_point_bounds_start)
 	out[0].append(_point_bounds_end)
-	out[0].append(base_image.get_data())
+	out[0].append(_point_colors)
 	out[0].append(_point_coords)
 	
 	return out

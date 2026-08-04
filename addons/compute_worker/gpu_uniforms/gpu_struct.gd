@@ -90,6 +90,7 @@ func encode_struct(data: Array, init: bool = false) -> PackedByteArray:
 				arr.append_array(int_to_byte_array_4(data[data_index]))
 			TYPE_PACKED_VECTOR4_ARRAY:
 				arr.append_array(data[data_index].to_byte_array())
+				
 		
 		data_index += 1
 	

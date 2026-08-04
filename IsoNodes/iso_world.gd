@@ -1,6 +1,7 @@
 class_name IsoWorld extends IsoNode
 
 @export var solid_iso_nodes : Array[IsoObject]
+@export var max_nodes = 512
 var compute_prefab = preload("res://iso_compute_worker.tscn")
 var compute_worker : ComputeWorker
 

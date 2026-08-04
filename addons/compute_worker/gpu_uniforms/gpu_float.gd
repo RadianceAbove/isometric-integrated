@@ -65,6 +65,3 @@ func get_uniform_data(rd: RenderingDevice) -> float:
 func set_uniform_data(rd: RenderingDevice, num: float) -> void:
 	var sb_data = float_to_byte_array(num)
 	rd.buffer_update(data_rid, 0 , sb_data.size(), sb_data)
-
-
-
