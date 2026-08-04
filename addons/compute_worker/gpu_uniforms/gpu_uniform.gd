@@ -41,9 +41,9 @@ func byte_array_to_bool(array: PackedByteArray) -> bool:
 		return false
 
 
-## Convert Vector4 to GLSL equivalent `dvec4`
+## Convert Vector4 to GLSL equivalent `vec4`
 func vec4_to_byte_array(vector: Vector4) -> PackedByteArray:
-	return PackedFloat64Array([vector.x, vector.y, vector.z, vector.w]).to_byte_array()
+	return PackedFloat32Array([vector.x, vector.y, vector.z, vector.w]).to_byte_array()
 
 
 ## Convert GLSL `dvec4` to Vector4

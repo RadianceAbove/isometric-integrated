@@ -24,20 +24,19 @@ class IsoPixel:
 
 func translate(vector : Vector3i) -> void:
 	position += vector
-	for point in solid_points:
-		point.position += vector
+	#for point in solid_points:
+	#	point.position += vector
 	if get_parent() is IsoNode:
 		get_parent().update_bounds()
 
 func build_point_bounds() -> void:
-	var pos = get_global_position()
 	for point in solid_points:
-		_point_bounds_start = Vector3i( min(_point_bounds_start.x,point.position.x-pos.x),\
-										min(_point_bounds_start.y,point.position.y-pos.y),\
-										min(_point_bounds_start.z,point.position.z-pos.z))
-		_point_bounds_end = Vector3i(   max(_point_bounds_end.x,point.position.x-pos.x),\
-										max(_point_bounds_end.y,point.position.y-pos.y),\
-										max(_point_bounds_end.z,point.position.z-pos.z))
+		_point_bounds_start = Vector3i( min(_point_bounds_start.x,point.position.x),\
+										min(_point_bounds_start.y,point.position.y),\
+										min(_point_bounds_start.z,point.position.z))
+		_point_bounds_end = Vector3i(   max(_point_bounds_end.x,point.position.x),\
+										max(_point_bounds_end.y,point.position.y),\
+										max(_point_bounds_end.z,point.position.z))
 
 func update_bounds() -> void:
 	super()

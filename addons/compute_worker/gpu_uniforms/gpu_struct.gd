@@ -80,6 +80,8 @@ func encode_struct(data: Array, init: bool = false) -> PackedByteArray:
 		match typeof(type_obj):
 			TYPE_VECTOR3I:
 				arr.append_array(vec3i_to_byte_array(data[data_index]))
+			TYPE_VECTOR4:
+				arr.append_array(vec4_to_byte_array(data[data_index]))
 			TYPE_COLOR:
 				arr.append_array(color_to_byte_array(data[data_index]))
 			TYPE_VECTOR3:
@@ -123,6 +125,10 @@ func decode_struct(data: PackedByteArray) -> Array:
 		match typeof(struct_data[i]):
 			TYPE_VECTOR3I:
 				var vec = byte_array_to_vec3(data.slice(offset, offset + 32))
+				arr.push_back(vec)
+				offset += 32
+			TYPE_VECTOR4:
+				var vec = byte_array_to_vec4(data.slice(offset, offset + 32))
 				arr.push_back(vec)
 				offset += 32
 			TYPE_COLOR:

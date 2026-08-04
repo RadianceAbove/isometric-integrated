@@ -2,8 +2,8 @@ class_name IsoViewer extends TextureRect
 
 @export var camera : IsoCamera
 @export var world : IsoWorld
-var test_shader_file = preload("res://compute_example_2.glsl")
-var compute_worker_prefab = preload("res://iso_compute_worker.tscn")
+var test_shader_file = preload("res://IsoNodes/Shader/iso_view.glsl")
+var compute_worker_prefab = preload("res://IsoNodes/Shader/iso_compute_worker.tscn")
 var compute_worker : ComputeWorker
 
 # Called when the node enters the scene tree for the first time.
@@ -23,6 +23,12 @@ func _ready() -> void:
 	tile_count_uniform.data = world.solid_iso_nodes.size()
 	
 	compute_worker.get_uniform_by_alias("tile_arr").array_size = world.max_nodes
+	compute_worker.get_uniform_by_alias("light_arr",2).array_size = world.max_lights
+	
+	
+	#DEBUG VALUE
+	var debug_uniform: GPU_Float = compute_worker.get_uniform_by_alias("debug_val", 3)
+	debug_uniform.data = 0.0;
 	
 	#var tile_array: GPU_StructArray = compute_worker.get_uniform_by_alias("tile_arr")
 	#var tiles_in := get_tile_array()
@@ -48,6 +54,12 @@ func get_tile_array() -> Array[Array]:
 	for obj in world.solid_iso_nodes:
 		tiles.append_array(obj.get_tiles())
 	return tiles
+
+func get_light_array() -> Array[Array]:
+	var lights : Array[Array] = []
+	for light in world.light_nodes:
+		lights.append(light.get_data())
+	return lights
 
 func test_compute() -> void:
 	
@@ -97,6 +109,9 @@ func _process(_delta: float) -> void:
 	compute_worker.set_uniform_data_by_alias(camera.position,"camera_pos",0,false)
 	compute_worker.set_uniform_data_by_alias(camera.cull_distance,"cull_distance",0,false)
 	compute_worker.set_uniform_data_by_alias(world.solid_iso_nodes.size(),"tile_count",0,false)
-	compute_worker.set_uniform_data_by_alias(get_tile_array(),"tile_arr",0,true)
+	compute_worker.set_uniform_data_by_alias(get_tile_array(),"tile_arr",0,false)
+	compute_worker.set_uniform_data_by_alias(world.light_nodes.size(),"light_count",2,false)
+	compute_worker.set_uniform_data_by_alias(get_light_array(),"light_arr",2,true)
 	
 	texture = ImageTexture.create_from_image(compute_worker.get_uniform_data_by_alias("im",1))
+	#print(compute_worker.get_uniform_data_by_alias("debug_val",3))
