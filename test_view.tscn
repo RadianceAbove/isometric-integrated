@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://b75gk8ln6fo8x"]
 
-[ext_resource type="PackedScene" uid="uid://db4kkprj1q8h5" path="res://IsoNodes/iso_viewer.tscn" id="1_avmpd"]
+[ext_resource type="PackedScene" uid="uid://db4kkprj1q8h5" path="res://addons/isometric_integrated/iso_viewer.tscn" id="1_avmpd"]
 [ext_resource type="Script" uid="uid://cqiowf63v3oxk" path="res://test_view.gd" id="1_vkp0m"]
-[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://IsoNodes/iso_object.gd" id="3_cljhh"]
-[ext_resource type="Script" uid="uid://dquv3r2giq3yf" path="res://IsoNodes/iso_world.gd" id="3_lv302"]
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://addons/isometric_integrated/iso_object.gd" id="3_cljhh"]
+[ext_resource type="Script" uid="uid://dquv3r2giq3yf" path="res://addons/isometric_integrated/iso_world.gd" id="3_lv302"]
 [ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://isometric-sandbox-32x32/Sprite-0001.png" id="4_lv302"]
 [ext_resource type="Texture2D" uid="uid://bnlv36uiyohha" path="res://isometric-sandbox-32x32/Sprite-0001-Layer.png" id="5_fcd7g"]
-[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://IsoNodes/iso_camera.gd" id="6_vrl5m"]
-[ext_resource type="Script" uid="uid://qpr206dlsxo2" path="res://IsoNodes/iso_light.gd" id="8_cljhh"]
+[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://addons/isometric_integrated/iso_camera.gd" id="6_vrl5m"]
+[ext_resource type="Texture2D" uid="uid://b6164w7ajs03x" path="res://isometric-sandbox-32x32/Sprite-0001-normal.png" id="7_lv302"]
+[ext_resource type="Script" uid="uid://qpr206dlsxo2" path="res://addons/isometric_integrated/iso_light.gd" id="8_cljhh"]
+[ext_resource type="Script" uid="uid://b1c2vedog20dd" path="res://test_light.gd" id="10_fcd7g"]
 
 [node name="Control" type="Control" unique_id=443110852 node_paths=PackedStringArray("viewer", "coord_label", "color_swatch", "character")]
 layout_mode = 3
@@ -47,14 +49,13 @@ offset_bottom = 577.0
 [node name="IsoCollection" type="Node" parent="." unique_id=516792378 node_paths=PackedStringArray("solid_iso_nodes", "light_nodes")]
 script = ExtResource("3_lv302")
 solid_iso_nodes = [NodePath("IsoObject"), NodePath("IsoObject2")]
-light_nodes = [NodePath("IsoLight")]
-metadata/_custom_type_script = "uid://dquv3r2giq3yf"
+light_nodes = [NodePath("IsoLight"), NodePath("IsoLight2")]
 
 [node name="IsoObject" type="Node" parent="IsoCollection" unique_id=1173940803]
 script = ExtResource("3_cljhh")
 base_texture = ExtResource("4_lv302")
 layer_texture = ExtResource("5_fcd7g")
-metadata/_custom_type_script = "uid://cremdxhxparmk"
+normal_texture = ExtResource("7_lv302")
 
 [node name="IsoCamera" type="Node" parent="IsoCollection" unique_id=1731867194 node_paths=PackedStringArray("collection")]
 script = ExtResource("6_vrl5m")
@@ -62,18 +63,21 @@ width = 128
 height = 128
 collection = NodePath("..")
 position = Vector3i(0, -64, 32)
-metadata/_custom_type_script = "uid://dil3heb15odf6"
 
 [node name="IsoLight" type="Node" parent="IsoCollection" unique_id=143421338]
 script = ExtResource("8_cljhh")
-color = Color(0.32509327, 0.3620964, 0.38432515, 1)
-strength = 2.0
+linear_falloff = 0.0
+quadratic_falloff = 0.0
 position = Vector3i(0, 0, 30)
-metadata/_custom_type_script = "uid://qpr206dlsxo2"
 
 [node name="IsoObject2" type="Node" parent="IsoCollection" unique_id=267608151]
 script = ExtResource("3_cljhh")
 base_texture = ExtResource("4_lv302")
 layer_texture = ExtResource("5_fcd7g")
+normal_texture = ExtResource("7_lv302")
 position = Vector3i(4, 0, 0)
-metadata/_custom_type_script = "uid://cremdxhxparmk"
+
+[node name="IsoLight2" type="Node" parent="IsoCollection" unique_id=1288316840]
+script = ExtResource("10_fcd7g")
+linear_falloff = 0.0
+quadratic_falloff = 0.0

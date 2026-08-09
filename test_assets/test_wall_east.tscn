@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3f4n1cipe3e4"]
+
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://addons/isometric_integrated/iso_object.gd" id="1_a38cj"]
+[ext_resource type="Texture2D" uid="uid://duejhy2xnrqbt" path="res://test_assets/test_wall_east_diffuse.png" id="2_lkxt7"]
+[ext_resource type="Texture2D" uid="uid://bm6vqdv2d8us0" path="res://test_assets/test_wall_east_layer.png" id="3_megjl"]
+[ext_resource type="Texture2D" uid="uid://mg5ydj2508lg" path="res://test_assets/test_wall_east_normal.png" id="4_xuab4"]
+
+[node name="TestWallEast" type="Node" unique_id=1338263261]
+script = ExtResource("1_a38cj")
+base_texture = ExtResource("2_lkxt7")
+layer_texture = ExtResource("3_megjl")
+origin_texture_coords = Vector2i(16, 16)
+normal_texture = ExtResource("4_xuab4")
+metadata/_custom_type_script = "uid://cremdxhxparmk"

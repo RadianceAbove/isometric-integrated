@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://db4kkprj1q8h5"]
 
-[ext_resource type="Script" uid="uid://qmcrer8tuku3" path="res://IsoNodes/iso_viewer.gd" id="1_bkv4w"]
+[ext_resource type="Script" uid="uid://qmcrer8tuku3" path="res://addons/isometric_integrated/iso_viewer.gd" id="1_bkv4w"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_cljhh"]
 

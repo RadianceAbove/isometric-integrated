@@ -22,7 +22,11 @@ func _process(_delta: float) -> void:
 	else:
 		var pos = pix.position
 		coord_label.text = str(pos)
-		color_swatch.color = pix.color 
+		color_swatch.color = pix.color
+		#color_swatch.color = viewer.texture.get_pixel(pos.x,pos.y)
+	color_swatch.color = viewer.get_pixel_color_at_position(get_local_mouse_position())
+	var col = color_swatch.color
+	coord_label.text = str(col.r) + ", " + str(col.g) + ", " + str(col.b)
 	
 	if Input.is_action_just_pressed("move_up"):
 		character.translate(Vector3i(0,2,0))

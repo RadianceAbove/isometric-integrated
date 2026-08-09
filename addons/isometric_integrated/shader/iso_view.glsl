@@ -8,12 +8,14 @@ struct Tile{
 	ivec4 high_bound;
 	vec4[1024] colors;
 	vec4[1024] positions;
+	vec4[1024] normals;
 };
 
 struct Light{
 	ivec4 position;
 	vec4 color;
-	double distance;
+	double falloff_linear;
+	double falloff_quadratic;
 	double strength;
 };
 
@@ -63,7 +65,6 @@ bool ray_intersects_box(vec3 ray_start, vec3 ray_end, vec3 box_start, vec3 box_e
 	// calculate using the slab method, beginning with the x direction
 	
 	if (path_vec.x == 0) {
-		
 		if (!(box_start.x <= ray_start.x && ray_start.x <= box_end.x)) {
 			return false;
 		}
@@ -120,8 +121,22 @@ bool ray_intersects_box(vec3 ray_start, vec3 ray_end, vec3 box_start, vec3 box_e
 	return true;
 }
 
-bool casts_light(ivec3 pix_pos, Light light) {
+float attenuation(int light_index, ivec3 target_pos) {
+	ivec3 light_pos = light_arr[light_index].position.xyz;
+	float x_dist = float(light_pos.x - target_pos.x);
+	float y_dist = float(light_pos.y - target_pos.y);
+	float z_dist = float(light_pos.z - target_pos.z);
+
+	float dist = sqrt(x_dist*x_dist + y_dist*y_dist + z_dist*z_dist);
+	return float(1.0/(1.0+light_arr[light_index].falloff_linear*dist+light_arr[light_index].falloff_quadratic*dist*dist));
+}
+
+bool casts_light(ivec3 pix_pos, Light light, int tile_index) {
 	for (int i = 0; i < tile_count; i++) {
+		// Don't block shadows for the same tile
+		if (i == tile_index) {
+			continue;
+		}
 		vec3 b1 = vec3(tile_arr[i].position.xyz + tile_arr[i].low_bound.xyz);
 		vec3 b2 = vec3(tile_arr[i].position.xyz + tile_arr[i].high_bound.xyz);
 		
@@ -140,19 +155,28 @@ bool casts_light(ivec3 pix_pos, Light light) {
 	return true;
 }
 
-vec4 light_color (vec4 color, ivec3 pix_pos) {
-	vec4 out_col = vec4(color);
+vec4 light_color (vec4 color, ivec3 pix_pos, vec3 normal, int tile_index) {
+	vec4 out_col = vec4(0,0,0,1);
 	
 	for (int i = 0; i < light_count; i++) {
-		if(casts_light(pix_pos,light_arr[i])){
+		if(casts_light(pix_pos,light_arr[i], tile_index)){
 			vec3 col = light_arr[i].color.rgb;
-			float str = float(light_arr[i].strength);
+			vec3 light_vec = normalize(vec3(light_arr[i].position.xyz - pix_pos));
+			//float dot = light_vec.x * normal.x + light_vec.y * normal.y + light_vec.z * normal.z;
+			float str = float(max(dot(light_vec,normal) * light_arr[i].strength, 0.0));
+			str *= attenuation(i, pix_pos);
+
+
+			
+			//float str = float(light_arr[i].strength);
 			//out_col.rgb += vec3(light_arr[i].color.rgb*color.rgb*light_arr[i].strength);
-			out_col.r += (1 - color.r) * col.r * str;
-			out_col.g += (1 - color.g) * col.g * str;
-			out_col.b += (1 - color.b) * col.b * str;
+			
+			out_col.r += color.r * col.r * str;
+			out_col.g += color.g * col.g * str;
+			out_col.b += color.b * col.b * str;
 		}
 	}
+	//out_col.rgb = normal.rgb;
 	return out_col;	
 }
 
@@ -167,6 +191,8 @@ void main() {
 	double pix_dist = cull_distance;
 	vec4 col = vec4(0,0,0,0);
 	ivec3 seen_pos = ivec3(0,0,0);
+	vec3 seen_normal = vec3(0,0,0);
+	int seen_tile = 0;
 	ivec3 camera_pix_pos = pos;
 	camera_pix_pos.x += int(gl_GlobalInvocationID.x)-int(floor(size.x/2));
 	camera_pix_pos.z += int(floor(size.y/2))-int(gl_GlobalInvocationID.y);
@@ -192,12 +218,14 @@ void main() {
 				pix_dist = dist;
 				col = tile_arr[i].colors[ind];
 				seen_pos = pix_pos;
+				seen_normal = tile_arr[i].normals[ind].xyz;
+				seen_tile = i;
 			}
 		}
 	}
 
 	if (col != vec4(0,0,0,0)) {
-		col = light_color(col, seen_pos);
+		col = light_color(col, seen_pos, seen_normal, seen_tile);
 	}
 
 

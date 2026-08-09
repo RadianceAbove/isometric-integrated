@@ -5,9 +5,11 @@ var base_image : Image
 # Leave black empty here
 @export var layer_texture : Texture2D
 var layer_image : Image
+var normal_image : Image
 @export var layer_count : int = 16
 @export var origin_layer : int = 0
 @export var origin_texture_coords : Vector2i = Vector2i(16,24)
+@export var normal_texture : Texture2D
 var solid_points : Array[IsoPixel]
 var visible_points : Array[IsoPixel]
 var _points_cache : Array[Array] = []
@@ -15,6 +17,7 @@ var _point_bounds_start = Vector3i.ZERO
 var _point_bounds_end = Vector3i.ZERO
 var _point_colors : PackedVector4Array
 var _point_coords : PackedVector4Array
+var _point_normals : PackedVector4Array
 
 class IsoPixel:
 	var parent : IsoObject
@@ -47,12 +50,30 @@ func update_bounds() -> void:
 							max(bounds_end.y,_point_bounds_end.y),\
 							max(bounds_end.z,_point_bounds_end.z))
 
+func color_to_normal_vec(color : Color) -> Vector3:
+	var x = (color.r-.5)*2
+	var y = (color.g-.5)*2
+	var z = (color.b-.5)*2
+	var out = Vector3(x,y,z)
+	return out*color.a
+
+func normal_vec_to_color(vector : Vector3) -> Color:
+	var r = vector.x/2+.5
+	var g = vector.y/2+.5
+	var b = vector.z/2+.5
+	var un_normed := Vector3(r,g,b)
+	var a = un_normed.length()
+	var normed = un_normed.normalized()
+	return Color(normed.x,normed.y,normed.z,a)
+
 func _ready() -> void:
 	base_image = base_texture.get_image()
 	layer_image = layer_texture.get_image()
+	normal_image = normal_texture.get_image()
 	_points_cache.resize(base_image.get_width())
 	_point_coords.resize(base_image.get_width()*base_image.get_height())
 	_point_colors.resize(base_image.get_width()*base_image.get_height())
+	_point_normals.resize(base_image.get_width()*base_image.get_height())
 	for a in range(_points_cache.size()):
 		_points_cache[a] = []
 		_points_cache[a].resize(base_image.get_height())
@@ -74,9 +95,17 @@ func _ready() -> void:
 				visible_points.append(point)
 				solid_points.append(point)
 				_points_cache[x][y] = point
+				# Get norm in global coordinates
+				var norm := color_to_normal_vec(normal_image.get_pixel(x,y))
+				var global_norm := norm
+				# Leave x coord
+				global_norm.y = norm.y / 2 - norm.z*(sqrt(3)/2)
 				
+				global_norm.z = norm.y * (sqrt(3)/2) + norm.z/2
 				_point_colors[x+y*base_image.get_width()] = Vector4(col.r,col.g,col.b,col.a)
 				_point_coords[x+y*base_image.get_width()] = Vector4(pos.x,pos.y,pos.z,0)
+				
+				_point_normals[x+y*base_image.get_width()] = Vector4(global_norm.x,global_norm.y,global_norm.z,0)
 #				include_in_bounds(pos)
 	build_point_bounds()
 	update_bounds()
@@ -154,6 +183,7 @@ func get_tiles() -> Array:
 	out[0].append(_point_bounds_end)
 	out[0].append(_point_colors)
 	out[0].append(_point_coords)
+	out[0].append(_point_normals)
 	
 	return out
 	
