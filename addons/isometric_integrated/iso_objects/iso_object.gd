@@ -1,15 +1,10 @@
 class_name IsoObject extends IsoNode
 
-@export var base_texture : Texture2D
+@export var tile : IsoTile
 var base_image : Image
-# Leave black empty here
-@export var layer_texture : Texture2D
 var layer_image : Image
 var normal_image : Image
-@export var layer_count : int = 16
-@export var origin_layer : int = 0
-@export var origin_texture_coords : Vector2i = Vector2i(16,24)
-@export var normal_texture : Texture2D
+
 var solid_points : Array[IsoPixel]
 var visible_points : Array[IsoPixel]
 var _points_cache : Array[Array] = []
@@ -67,9 +62,9 @@ func normal_vec_to_color(vector : Vector3) -> Color:
 	return Color(normed.x,normed.y,normed.z,a)
 
 func _ready() -> void:
-	base_image = base_texture.get_image()
-	layer_image = layer_texture.get_image()
-	normal_image = normal_texture.get_image()
+	base_image = tile.base_texture.get_image()
+	layer_image = tile.layer_texture.get_image()
+	normal_image = tile.normal_texture.get_image()
 	_points_cache.resize(base_image.get_width())
 	_point_coords.resize(base_image.get_width()*base_image.get_height())
 	_point_colors.resize(base_image.get_width()*base_image.get_height())
@@ -91,7 +86,7 @@ func _ready() -> void:
 				point.parent = self
 				point.position = pos
 				point.color = col
-				point.screenspace_offset = Vector2i(x,y) - origin_texture_coords
+				point.screenspace_offset = Vector2i(x,y) - tile.origin_texture_coords
 				visible_points.append(point)
 				solid_points.append(point)
 				_points_cache[x][y] = point
@@ -113,13 +108,13 @@ func _ready() -> void:
 func get_pixel_z(pixel : Vector2i) -> int:
 	var col : Color = layer_image.get_pixelv(pixel)
 	# use white as the top layer
-	var z_offset : int = round(col.v * layer_count)-1
-	return z_offset - origin_layer
+	var z_offset : int = round(col.v * tile.layer_count)-1
+	return z_offset - tile.origin_layer
 
 func get_pixel_pos(pixel : Vector2i) -> Vector3i:
 	var z = get_pixel_z(pixel)
-	var x = pixel.x - origin_texture_coords.x 
-	var y = origin_texture_coords.y - (z - origin_layer) - pixel.y
+	var x = pixel.x - tile.origin_texture_coords.x 
+	var y = tile.origin_texture_coords.y - (z - tile.origin_layer) - pixel.y
 	
 	# y scales twice as fast as x does
 	y *= 2
@@ -132,7 +127,7 @@ func get_screenspace_pixels(pos : Vector3i) -> Array[IsoPixel]:
 	var screenspace_origin = Vector2i(position.x,floor(float(position.y)/2)+position.z)
 	var screenspace_offset = screenspace_pos-screenspace_origin
 	var texture_pos = Vector2i(screenspace_offset.x,- screenspace_offset.y)\
-					 + origin_texture_coords
+					 + tile.origin_texture_coords
 	if 0 <= texture_pos.x and texture_pos.x < base_image.get_width() and \
 		0 <= texture_pos.y and texture_pos.y < base_image.get_height():
 		var p = _points_cache[texture_pos.x][texture_pos.y]
@@ -178,7 +173,7 @@ func get_tiles() -> Array:
 	
 	out.append([])
 	out[0].append(global_pos)
-	out[0].append(Vector3i(origin_texture_coords.x,origin_texture_coords.y,0))
+	out[0].append(Vector3i(tile.origin_texture_coords.x,tile.origin_texture_coords.y,0))
 	out[0].append(_point_bounds_start)
 	out[0].append(_point_bounds_end)
 	out[0].append(_point_colors)

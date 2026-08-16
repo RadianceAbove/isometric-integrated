@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c7jjpxj5aer37"]
+
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://addons/isometric_integrated/iso_objects/iso_object.gd" id="1_x3mf6"]
+[ext_resource type="Resource" uid="uid://g65p7jnbkmtf" path="res://addons/isometric_integrated/test_assets/tiles/test_floor.tres" id="2_etv43"]
+
+[node name="TestFloor" type="Node" unique_id=668569127]
+script = ExtResource("1_x3mf6")
+tile = ExtResource("2_etv43")
+metadata/_custom_type_script = "uid://cremdxhxparmk"

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dqu7rlqllnpv1"]
+
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://addons/isometric_integrated/iso_objects/iso_object.gd" id="1_khvb8"]
+[ext_resource type="Resource" uid="uid://d03hhowpo3jdv" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_west.tres" id="2_herdv"]
+
+[node name="TestWallWest" type="Node" unique_id=948475175]
+script = ExtResource("1_khvb8")
+tile = ExtResource("2_herdv")
+metadata/_custom_type_script = "uid://cremdxhxparmk"
