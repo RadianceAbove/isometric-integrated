@@ -1,0 +1,10 @@
+[gd_resource type="Resource" format=3 uid="uid://ilxhjl8o6e6c"]
+
+[ext_resource type="Script" uid="uid://bswo4w44wbx1t" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_integer.gd" id="1_qo6gq"]
+
+[resource]
+script = ExtResource("1_qo6gq")
+data = 0
+binding = 0
+uniform_type = 0
+alias = ""

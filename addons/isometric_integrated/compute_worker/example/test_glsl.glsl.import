@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c5mtrei2xsp1w"
+path="res://.godot/imported/test_glsl.glsl-ee70d38bcc176d5094e41b126a990148.res"
+
+[deps]
+
+source_file="res://addons/isometric_integrated/compute_worker/example/test_glsl.glsl"
+dest_files=["res://.godot/imported/test_glsl.glsl-ee70d38bcc176d5094e41b126a990148.res"]
+
+[params]
+

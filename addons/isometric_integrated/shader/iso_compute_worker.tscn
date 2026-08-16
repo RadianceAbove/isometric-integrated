@@ -1,14 +1,14 @@
 [gd_scene format=4 uid="uid://bgo6gqkkpie8"]
 
-[ext_resource type="Script" uid="uid://c1ywxnfp2iex1" path="res://addons/compute_worker/compute_worker.gd" id="1_se8vp"]
+[ext_resource type="Script" uid="uid://c1ywxnfp2iex1" path="res://addons/isometric_integrated/compute_worker/compute_worker.gd" id="1_se8vp"]
 [ext_resource type="RDShaderFile" uid="uid://cad8f3fx7j3j" path="res://addons/isometric_integrated/shader/iso_view.glsl" id="2_17xbd"]
-[ext_resource type="Script" uid="uid://nm8p88dkrndh" path="res://addons/compute_worker/uniform_sets/uniform_set.gd" id="3_331d1"]
-[ext_resource type="Script" uid="uid://6uwtmd7hy62n" path="res://addons/compute_worker/gpu_uniforms/gpu_uniform.gd" id="4_31lm0"]
-[ext_resource type="Script" uid="uid://bvdvgap6ptjru" path="res://addons/compute_worker/gpu_uniforms/gpu_vector3i.gd" id="5_7id1m"]
-[ext_resource type="Script" uid="uid://d2dmnma272voj" path="res://addons/compute_worker/gpu_uniforms/gpu_float.gd" id="6_04pyp"]
-[ext_resource type="Script" uid="uid://bswo4w44wbx1t" path="res://addons/compute_worker/gpu_uniforms/gpu_integer.gd" id="7_i0dqj"]
-[ext_resource type="Script" uid="uid://m8gidiwrsa8h" path="res://addons/compute_worker/gpu_uniforms/gpu_struct_array.gd" id="8_t0i2g"]
-[ext_resource type="Script" uid="uid://dp8x787wu5bdc" path="res://addons/compute_worker/gpu_uniforms/gpu_image.gd" id="9_01aro"]
+[ext_resource type="Script" uid="uid://nm8p88dkrndh" path="res://addons/isometric_integrated/compute_worker/uniform_sets/uniform_set.gd" id="3_331d1"]
+[ext_resource type="Script" uid="uid://6uwtmd7hy62n" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_uniform.gd" id="4_31lm0"]
+[ext_resource type="Script" uid="uid://bvdvgap6ptjru" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_vector3i.gd" id="5_7id1m"]
+[ext_resource type="Script" uid="uid://d2dmnma272voj" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_float.gd" id="6_04pyp"]
+[ext_resource type="Script" uid="uid://bswo4w44wbx1t" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_integer.gd" id="7_i0dqj"]
+[ext_resource type="Script" uid="uid://m8gidiwrsa8h" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_struct_array.gd" id="8_t0i2g"]
+[ext_resource type="Script" uid="uid://dp8x787wu5bdc" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_image.gd" id="9_01aro"]
 
 [sub_resource type="Resource" id="Resource_yf5fn"]
 script = ExtResource("5_7id1m")
