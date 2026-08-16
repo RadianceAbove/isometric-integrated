@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://drmgxx1ghaarx"]
+
+[ext_resource type="Script" uid="uid://cqiowf63v3oxk" path="res://addons/isometric_integrated/test_assets/test_view.gd" id="1_1jdxl"]
+[ext_resource type="PackedScene" uid="uid://db4kkprj1q8h5" path="res://addons/isometric_integrated/iso_objects/iso_viewer.tscn" id="2_nbdbv"]
+[ext_resource type="Script" uid="uid://dquv3r2giq3yf" path="res://addons/isometric_integrated/iso_objects/iso_world.gd" id="3_nxkol"]
+[ext_resource type="Script" uid="uid://cremdxhxparmk" path="res://addons/isometric_integrated/iso_objects/iso_object.gd" id="4_mysq1"]
+[ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001.png" id="5_gp3xu"]
+[ext_resource type="Texture2D" uid="uid://bnlv36uiyohha" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001-Layer.png" id="6_u4j65"]
+[ext_resource type="Texture2D" uid="uid://b6164w7ajs03x" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001-normal.png" id="7_qyamt"]
+[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://addons/isometric_integrated/iso_objects/iso_camera.gd" id="8_c7xmf"]
+[ext_resource type="Script" uid="uid://qpr206dlsxo2" path="res://addons/isometric_integrated/iso_objects/iso_light.gd" id="9_0v5fk"]
+[ext_resource type="Script" uid="uid://b1c2vedog20dd" path="res://addons/isometric_integrated/test_assets/test_light.gd" id="10_f71y3"]
+[ext_resource type="PackedScene" uid="uid://c7jjpxj5aer37" path="res://addons/isometric_integrated/test_assets/test_floor.tscn" id="11_5160f"]
+[ext_resource type="PackedScene" uid="uid://d3f4n1cipe3e4" path="res://addons/isometric_integrated/test_assets/test_wall_east.tscn" id="12_1gvwp"]
+[ext_resource type="PackedScene" uid="uid://dqu7rlqllnpv1" path="res://addons/isometric_integrated/test_assets/test_wall_west.tscn" id="13_iiur7"]
+
+[node name="Control" type="Control" unique_id=443110852 node_paths=PackedStringArray("viewer", "coord_label", "color_swatch", "character")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1jdxl")
+viewer = NodePath("IsoViewer")
+coord_label = NodePath("Coords")
+color_swatch = NodePath("ColorRect")
+character = NodePath("IsoCollection/IsoObject")
+
+[node name="IsoViewer" parent="." unique_id=1816547597 node_paths=PackedStringArray("camera", "world") instance=ExtResource("2_nbdbv")]
+layout_mode = 0
+offset_right = 528.0
+offset_bottom = 528.0
+expand_mode = 2
+camera = NodePath("../IsoCollection/IsoCamera")
+world = NodePath("../IsoCollection")
+
+[node name="Coords" type="Label" parent="." unique_id=766956139]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 499.0
+offset_right = 81.0
+offset_bottom = 522.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=633883580]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 537.0
+offset_right = 53.0
+offset_bottom = 577.0
+
+[node name="IsoCollection" type="Node" parent="." unique_id=516792378 node_paths=PackedStringArray("solid_iso_nodes", "light_nodes")]
+script = ExtResource("3_nxkol")
+solid_iso_nodes = [NodePath("IsoObject"), NodePath("TestFloor"), NodePath("TestWallEast"), NodePath("TestWallWest")]
+light_nodes = [NodePath("IsoLight"), NodePath("IsoLight2")]
+
+[node name="IsoObject" type="Node" parent="IsoCollection" unique_id=1173940803]
+script = ExtResource("4_mysq1")
+base_texture = ExtResource("5_gp3xu")
+layer_texture = ExtResource("6_u4j65")
+normal_texture = ExtResource("7_qyamt")
+
+[node name="IsoCamera" type="Node" parent="IsoCollection" unique_id=1731867194 node_paths=PackedStringArray("collection")]
+script = ExtResource("8_c7xmf")
+width = 128
+height = 128
+collection = NodePath("..")
+position = Vector3i(0, -64, 32)
+
+[node name="IsoLight" type="Node" parent="IsoCollection" unique_id=143421338]
+script = ExtResource("9_0v5fk")
+linear_falloff = 0.0
+quadratic_falloff = 0.0
+position = Vector3i(0, 0, 30)
+
+[node name="IsoLight2" type="Node" parent="IsoCollection" unique_id=1288316840]
+script = ExtResource("10_f71y3")
+linear_falloff = 0.0
+quadratic_falloff = 0.0
+
+[node name="TestFloor" parent="IsoCollection" unique_id=668569127 instance=ExtResource("11_5160f")]
+
+[node name="TestWallEast" parent="IsoCollection" unique_id=1338263261 instance=ExtResource("12_1gvwp")]
+
+[node name="TestWallWest" parent="IsoCollection" unique_id=948475175 instance=ExtResource("13_iiur7")]
+
+[node name="IsoCollection" type="Node" parent="IsoCollection" unique_id=292639667 node_paths=PackedStringArray("solid_iso_nodes", "light_nodes")]
+script = ExtResource("3_nxkol")
+solid_iso_nodes = [NodePath("IsoObject"), NodePath("TestFloor"), NodePath("TestWallEast"), NodePath("TestWallWest")]
+light_nodes = [NodePath("IsoLight"), NodePath("IsoLight2")]
+
+[node name="IsoObject" type="Node" parent="IsoCollection/IsoCollection" unique_id=518164431]
+script = ExtResource("4_mysq1")
+base_texture = ExtResource("5_gp3xu")
+layer_texture = ExtResource("6_u4j65")
+normal_texture = ExtResource("7_qyamt")
+
+[node name="IsoCamera" type="Node" parent="IsoCollection/IsoCollection" unique_id=740069408 node_paths=PackedStringArray("collection")]
+script = ExtResource("8_c7xmf")
+width = 128
+height = 128
+collection = NodePath("..")
+position = Vector3i(0, -64, 32)
+
+[node name="IsoLight" type="Node" parent="IsoCollection/IsoCollection" unique_id=1772617544]
+script = ExtResource("9_0v5fk")
+linear_falloff = 0.0
+quadratic_falloff = 0.0
+position = Vector3i(0, 0, 30)
+
+[node name="IsoLight2" type="Node" parent="IsoCollection/IsoCollection" unique_id=1462981520]
+script = ExtResource("10_f71y3")
+linear_falloff = 0.0
+quadratic_falloff = 0.0
+
+[node name="TestFloor" parent="IsoCollection/IsoCollection" unique_id=1539862195 instance=ExtResource("11_5160f")]
+
+[node name="TestWallEast" parent="IsoCollection/IsoCollection" unique_id=1875695517 instance=ExtResource("12_1gvwp")]
+
+[node name="TestWallWest" parent="IsoCollection/IsoCollection" unique_id=1428000793 instance=ExtResource("13_iiur7")]

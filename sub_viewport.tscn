@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://c7aywxx8pb8r"]
-
-[node name="SubViewport" type="SubViewport" unique_id=211577941]
-
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1346373975]
-offset_right = 320.0
-offset_bottom = 320.0
-color = Color(0.7668941, 0, 0.18542305, 1)
