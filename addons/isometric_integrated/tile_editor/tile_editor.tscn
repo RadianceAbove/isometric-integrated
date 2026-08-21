@@ -42,6 +42,7 @@ tile_categories = Array[ExtResource("2_6hme6")]([ExtResource("3_prwt0")])
 
 [node name="IsoWorld" type="Node" parent="." unique_id=928845974]
 script = ExtResource("5_wq0j8")
+ambient_light = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://dquv3r2giq3yf"
 
 [node name="IsoCamera" type="Node" parent="IsoWorld" unique_id=1289132136 node_paths=PackedStringArray("collection")]

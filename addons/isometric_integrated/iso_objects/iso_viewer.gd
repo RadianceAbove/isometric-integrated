@@ -86,6 +86,7 @@ func _process(_delta: float) -> void:
 	compute_worker.set_uniform_data_by_alias(camera.cull_distance,"cull_distance",0,false)
 	compute_worker.set_uniform_data_by_alias(world.solid_iso_nodes.size(),"tile_count",0,false)
 	compute_worker.set_uniform_data_by_alias(get_tile_array(),"tile_arr",0,false)
+	compute_worker.set_uniform_data_by_alias(world.ambient_light,"light_ambient",2,false)
 	compute_worker.set_uniform_data_by_alias(world.light_nodes.size(),"light_count",2,false)
 	compute_worker.set_uniform_data_by_alias(get_light_array(),"light_arr",2,true)
 	

@@ -1,6 +1,6 @@
 class_name IsoWorld extends IsoNode
 
-
+@export var ambient_light : Color = Color.BLACK
 @export var solid_iso_nodes : Array[IsoObject]
 @export var light_nodes : Array[IsoLight]
 @export var max_nodes = 512

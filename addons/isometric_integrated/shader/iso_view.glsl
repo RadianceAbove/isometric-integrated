@@ -39,11 +39,15 @@ layout(set = 0, binding = 3, std430) buffer TileArray{
 
 layout(rgba32f, set = 1, binding = 0) uniform restrict writeonly image2D im;
 
-layout(set = 2, binding = 0, std140) uniform LightCount{
+layout(set = 2, binding = 0, std140) uniform LightAmbient{
+	vec4 light_ambient;
+};
+
+layout(set = 2, binding = 1, std140) uniform LightCount{
 	int light_count;
 };
 
-layout(set = 2, binding = 1, std430) buffer LightArray{
+layout(set = 2, binding = 2, std430) buffer LightArray{
 	Light[] light_arr;
 };
 
@@ -157,6 +161,9 @@ bool casts_light(ivec3 pix_pos, Light light, int tile_index) {
 
 vec4 light_color (vec4 color, ivec3 pix_pos, vec3 normal, int tile_index) {
 	vec4 out_col = vec4(0,0,0,1);
+	out_col.r += color.r * light_ambient.r;
+	out_col.g += color.g * light_ambient.g;
+	out_col.b += color.b * light_ambient.b;
 	
 	for (int i = 0; i < light_count; i++) {
 		if(casts_light(pix_pos,light_arr[i], tile_index)){

@@ -56,9 +56,9 @@ func byte_array_to_vec4(array: PackedByteArray) -> Vector4:
 	return vec
 
 
-## Convert Color to GLSL equivalent `dvec4`
+## Convert Color to GLSL equivalent `vec4`
 func color_to_byte_array(color: Color) -> PackedByteArray:
-	return PackedFloat64Array([color.r, color.g, color.b, color.a]).to_byte_array()
+	return PackedFloat32Array([color.r, color.g, color.b, color.a]).to_byte_array()
 
 
 ## Convert GLSL `dvec4` to Color

@@ -51,6 +51,7 @@ offset_bottom = 577.0
 
 [node name="IsoCollection" type="Node" parent="." unique_id=516792378 node_paths=PackedStringArray("solid_iso_nodes", "light_nodes")]
 script = ExtResource("3_tyr6l")
+ambient_light = Color(0.14767182, 0.14767179, 0.14767179, 1)
 solid_iso_nodes = [NodePath("IsoObject"), NodePath("IsoObject2")]
 light_nodes = [NodePath("IsoLight"), NodePath("IsoLight2")]
 

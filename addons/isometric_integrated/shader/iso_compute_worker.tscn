@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bswo4w44wbx1t" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_integer.gd" id="7_i0dqj"]
 [ext_resource type="Script" uid="uid://m8gidiwrsa8h" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_struct_array.gd" id="8_t0i2g"]
 [ext_resource type="Script" uid="uid://dp8x787wu5bdc" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_image.gd" id="9_01aro"]
+[ext_resource type="Script" uid="uid://bayne28njhtuk" path="res://addons/isometric_integrated/compute_worker/gpu_uniforms/gpu_color.gd" id="10_hctvd"]
 
 [sub_resource type="Resource" id="Resource_yf5fn"]
 script = ExtResource("5_7id1m")
@@ -50,21 +51,28 @@ uniforms = Array[ExtResource("4_31lm0")]([SubResource("Resource_61o3p")])
 set_id = 1
 metadata/_custom_type_script = "uid://nm8p88dkrndh"
 
+[sub_resource type="Resource" id="Resource_wq0j8"]
+script = ExtResource("10_hctvd")
+uniform_type = 0
+alias = "light_ambient"
+metadata/_custom_type_script = "uid://bayne28njhtuk"
+
 [sub_resource type="Resource" id="Resource_k7rkb"]
 script = ExtResource("7_i0dqj")
+binding = 1
 alias = "light_count"
 metadata/_custom_type_script = "uid://bswo4w44wbx1t"
 
 [sub_resource type="Resource" id="Resource_lv302"]
 script = ExtResource("8_t0i2g")
 struct_data = [Vector3i(0, 0, 0), Vector4(0, 0, 0, 0), 0.0, 0.0, 0.0]
-binding = 1
+binding = 2
 alias = "light_arr"
 metadata/_custom_type_script = "uid://m8gidiwrsa8h"
 
 [sub_resource type="Resource" id="Resource_cljhh"]
 script = ExtResource("3_331d1")
-uniforms = Array[ExtResource("4_31lm0")]([SubResource("Resource_k7rkb"), SubResource("Resource_lv302")])
+uniforms = Array[ExtResource("4_31lm0")]([SubResource("Resource_wq0j8"), SubResource("Resource_k7rkb"), SubResource("Resource_lv302")])
 set_id = 2
 metadata/_custom_type_script = "uid://nm8p88dkrndh"
 
