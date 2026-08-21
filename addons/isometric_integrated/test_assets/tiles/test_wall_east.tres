@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="IsoTile" format=3 uid="uid://beqhwwiik0ipm"]
 
-[ext_resource type="Script" uid="uid://dgvuvmqqujo5o" path="res://addons/isometric_integrated/iso_objects/iso_tile.gd" id="1_4pfh2"]
-[ext_resource type="Texture2D" uid="uid://duejhy2xnrqbt" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_diffuse.png" id="1_n6hgs"]
-[ext_resource type="Texture2D" uid="uid://bm6vqdv2d8us0" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_layer.png" id="2_f77p8"]
-[ext_resource type="Texture2D" uid="uid://mg5ydj2508lg" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_normal.png" id="3_6rjco"]
+[ext_resource type="Texture2D" uid="uid://duejhy2xnrqbt" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_diffuse.png" id="1_wvlml"]
+[ext_resource type="Texture2D" uid="uid://bm6vqdv2d8us0" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_layer.png" id="2_vewjl"]
+[ext_resource type="Texture2D" uid="uid://mg5ydj2508lg" path="res://addons/isometric_integrated/test_assets/tiles/test_wall_east_normal.png" id="3_qu0on"]
+[ext_resource type="Script" uid="uid://dgvuvmqqujo5o" path="res://addons/isometric_integrated/iso_objects/iso_tile.gd" id="4_ye81y"]
 
 [resource]
-script = ExtResource("1_4pfh2")
-base_texture = ExtResource("1_n6hgs")
-layer_texture = ExtResource("2_f77p8")
-normal_texture = ExtResource("3_6rjco")
+script = ExtResource("4_ye81y")
+name = "Test Wall E"
+base_texture = ExtResource("1_wvlml")
+layer_texture = ExtResource("2_vewjl")
+normal_texture = ExtResource("3_qu0on")
 metadata/_custom_type_script = "uid://dgvuvmqqujo5o"

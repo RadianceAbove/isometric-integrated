@@ -62,6 +62,10 @@ func normal_vec_to_color(vector : Vector3) -> Color:
 	return Color(normed.x,normed.y,normed.z,a)
 
 func _ready() -> void:
+	set_tile(tile)
+
+func set_tile(new_tile : IsoTile):
+	tile = new_tile
 	base_image = tile.base_texture.get_image()
 	layer_image = tile.layer_texture.get_image()
 	normal_image = tile.normal_texture.get_image()
@@ -102,6 +106,9 @@ func _ready() -> void:
 				
 				_point_normals[x+y*base_image.get_width()] = Vector4(global_norm.x,global_norm.y,global_norm.z,0)
 #				include_in_bounds(pos)
+			else:
+				_point_colors[x+y*base_image.get_width()] = Vector4(0,0,0,0)
+				
 	build_point_bounds()
 	update_bounds()
 

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ctr1yuyg1alcg"]
+
+[ext_resource type="Script" uid="uid://c54ipc63p4s4d" path="res://addons/isometric_integrated/tile_editor/tile_selector.gd" id="1_1uk8b"]
+[ext_resource type="Script" uid="uid://b6i55lj772pnk" path="res://addons/isometric_integrated/tile_editor/tile_editor.gd" id="1_wq0j8"]
+[ext_resource type="Script" uid="uid://u36xpf11sqph" path="res://addons/isometric_integrated/tile_editor/iso_tile_editor_category.gd" id="2_6hme6"]
+[ext_resource type="Resource" uid="uid://duihstuo60t8b" path="res://addons/isometric_integrated/test_assets/tiles/test_category.tres" id="3_prwt0"]
+[ext_resource type="Script" uid="uid://qmcrer8tuku3" path="res://addons/isometric_integrated/iso_objects/iso_viewer.gd" id="4_gsw16"]
+[ext_resource type="Script" uid="uid://dquv3r2giq3yf" path="res://addons/isometric_integrated/iso_objects/iso_world.gd" id="5_wq0j8"]
+[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://addons/isometric_integrated/iso_objects/iso_camera.gd" id="6_aujoc"]
+
+[node name="TileEditor" type="Control" unique_id=892829453]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wq0j8")
+
+[node name="IsoViewer" type="TextureRect" parent="." unique_id=261027567 node_paths=PackedStringArray("camera", "world")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_gsw16")
+camera = NodePath("../IsoWorld/IsoCamera")
+world = NodePath("../IsoWorld")
+metadata/_custom_type_script = "uid://qmcrer8tuku3"
+
+[node name="TileSelector" type="TabContainer" parent="." unique_id=1748534577]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_bottom = 279.0
+grow_horizontal = 0
+script = ExtResource("1_1uk8b")
+tile_categories = Array[ExtResource("2_6hme6")]([ExtResource("3_prwt0")])
+
+[node name="IsoWorld" type="Node" parent="." unique_id=928845974]
+script = ExtResource("5_wq0j8")
+metadata/_custom_type_script = "uid://dquv3r2giq3yf"
+
+[node name="IsoCamera" type="Node" parent="IsoWorld" unique_id=1289132136 node_paths=PackedStringArray("collection")]
+script = ExtResource("6_aujoc")
+collection = NodePath("..")
+metadata/_custom_type_script = "uid://dil3heb15odf6"

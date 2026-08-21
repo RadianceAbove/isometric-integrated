@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://wirvmyjwe7ok"]
+
+[ext_resource type="Script" uid="uid://c5t7nndd3w1qj" path="res://addons/isometric_integrated/tile_editor/category_tab.gd" id="1_fb2ob"]
+
+[node name="CategoryTab" type="TabBar" unique_id=1161790241]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fb2ob")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=190197492]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=1718719118]
+layout_mode = 2
+columns = 4

@@ -23,8 +23,15 @@ func get_camera_pixel(texture_pos : Vector2i) -> IsoObject.IsoPixel:
 	var end_offset = start_offset - Vector3i(0,-2*z_depth,z_depth)
 	var int_point = IsoRay.intersect_screenspace(collection,start_offset+relative)
 	
-	
 	return int_point
+
+func get_position_at_level(texture_pos : Vector2i, z_level : int) -> Vector3i:
+	var x = texture_pos.x
+	var y = height - texture_pos.y - 1
+	var start_offset = Vector3i(x-floor(float(width)/2),2*y-height,0)
+	var z_diff = position.z - z_level
+	var y_diff = z_diff * 2
+	return Vector3i(start_offset.x,start_offset.y-y_diff,z_level)
 
 func get_image() -> Image:
 	var im : Image = Image.create_empty(width, height,false,Image.FORMAT_RGBA8)

@@ -65,6 +65,11 @@ func get_pixel_at_position(pos : Vector2) -> IsoObject.IsoPixel:
 	var camera_pos = floor(uv * Vector2(camera.get_size()))
 	return camera.get_camera_pixel(camera_pos)
 
+func get_z_level_pos_at_position(pos : Vector2, z_level : int) -> Vector3i:
+	var uv = pos/size
+	var camera_pos = floor(uv * Vector2(camera.get_size()))
+	return camera.get_position_at_level(camera_pos, z_level)
+
 func get_pixel_color_at_position(pos : Vector2) -> Color:
 	var uv := pos/size
 	var camera_pos = floor(uv * Vector2(camera.get_size()))

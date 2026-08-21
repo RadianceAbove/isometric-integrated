@@ -1,5 +1,7 @@
 class_name IsoTile extends Resource
 
+@export var name : String
+
 @export var base_texture : Texture2D
 
 @export var layer_texture : Texture2D
