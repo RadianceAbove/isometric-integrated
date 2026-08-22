@@ -184,6 +184,7 @@ vec4 light_color (vec4 color, ivec3 pix_pos, vec3 normal, int tile_index) {
 		}
 	}
 	//out_col.rgb = normal.rgb;
+
 	return out_col;	
 }
 

@@ -16,14 +16,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wq0j8")
+tile_y = 16
 
 [node name="IsoViewer" type="TextureRect" parent="." unique_id=261027567 node_paths=PackedStringArray("camera", "world")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -640.0
+offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch_mode = 4
 script = ExtResource("4_gsw16")
 camera = NodePath("../IsoWorld/IsoCamera")
 world = NodePath("../IsoWorld")
@@ -47,5 +51,8 @@ metadata/_custom_type_script = "uid://dquv3r2giq3yf"
 
 [node name="IsoCamera" type="Node" parent="IsoWorld" unique_id=1289132136 node_paths=PackedStringArray("collection")]
 script = ExtResource("6_aujoc")
+width = 256
+height = 256
 collection = NodePath("..")
+position = Vector3i(0, 0, 32)
 metadata/_custom_type_script = "uid://dil3heb15odf6"
