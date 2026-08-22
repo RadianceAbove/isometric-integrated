@@ -54,5 +54,5 @@ script = ExtResource("6_aujoc")
 width = 256
 height = 256
 collection = NodePath("..")
-position = Vector3i(0, 0, 32)
+position = Vector3i(0, -64, 32)
 metadata/_custom_type_script = "uid://dil3heb15odf6"

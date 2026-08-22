@@ -30,7 +30,6 @@ func _lock_to_grid(position : Vector3i) -> Vector3i:
 func _on_viewer_input(event : InputEvent) -> void:
 	if event.is_action_pressed("mouse_button_left"):
 		world.add_child(preview_node.duplicate())
-		print("pressed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
