@@ -10,8 +10,7 @@ class_name IsoWorld extends IsoNode
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	# Set up world tiles.
-	pass
+	refresh_collection()
 	
 	
 func refresh_collection() -> void:
