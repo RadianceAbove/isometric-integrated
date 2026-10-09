@@ -14,7 +14,7 @@ class_name IsoObject extends MeshInstance3D
 
 var image : Image
 
-@export var texture_origin : Vector2i
+@export var texture_offset : Vector2i
 
 var world : IsoWorld
 

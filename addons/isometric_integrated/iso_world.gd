@@ -51,8 +51,8 @@ func _process(_delta: float) -> void:
 			if obj != null:
 				var obj_im : Image = obj.image
 				var origin : Vector2 = active_camera.unproject_position(obj.position)
-				var origin_conv_x = roundi(origin.x)
-				var origin_conv_y = roundi(origin.y)
+				var origin_conv_x = roundi(origin.x) + obj.texture_offset.x
+				var origin_conv_y = roundi(origin.y) - obj.texture_offset.y
 				var tex_pos = Vector2(x,y)-Vector2(origin_conv_x,origin_conv_y)+.5*Vector2(obj_im.get_size())
 				if 0 <= tex_pos.x and tex_pos.x < obj_im.get_size().x and 0 <= tex_pos.y and tex_pos.y < obj_im.get_size().y:
 					pix_col = obj_im.get_pixelv(Vector2i(tex_pos))
