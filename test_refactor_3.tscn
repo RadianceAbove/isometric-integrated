@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://b186tgdl25kvk"]
+
+[ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/iso_world.gd" id="1_ys3va"]
+[ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/iso_camera.gd" id="2_mfba1"]
+[ext_resource type="BoxMesh" uid="uid://dydewwnwhsba6" path="res://new_box_mesh.tres" id="3_1lfju"]
+[ext_resource type="Script" uid="uid://cxafyi5q1d3yg" path="res://test_object.gd" id="4_ys3va"]
+[ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001.png" id="5_dhy8q"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mfba1"]
+
+[sub_resource type="Sky" id="Sky_ys3va"]
+sky_material = SubResource("ProceduralSkyMaterial_mfba1")
+
+[sub_resource type="Environment" id="Environment_mfba1"]
+background_mode = 2
+background_color = Color(0.8980392, 0, 0, 1)
+sky = SubResource("Sky_ys3va")
+
+[sub_resource type="World3D" id="World3D_ys3va"]
+environment = SubResource("Environment_mfba1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ys3va"]
+
+[node name="TestRefactor3" type="Control" unique_id=1789679881]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2028153645]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+expand_mode = 2
+
+[node name="IsoWorldNew" type="SubViewport" parent="." unique_id=814665925 node_paths=PackedStringArray("id_world", "active_camera", "display")]
+world_3d = SubResource("World3D_ys3va")
+size = Vector2i(128, 128)
+render_target_update_mode = 4
+script = ExtResource("1_ys3va")
+neutral_color = Color(1, 1, 1, 1)
+pixels_per_unit = null
+id_world = NodePath("../IdWorld")
+active_camera = NodePath("IsoCameraNew")
+display = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://c2l2a380hs0fo"
+
+[node name="IsoCameraNew" type="Camera3D" parent="IsoWorldNew" unique_id=676974562 node_paths=PackedStringArray("world")]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2.4, 3)
+projection = 1
+current = true
+size = 4.0
+script = ExtResource("2_mfba1")
+world = NodePath("..")
+metadata/_custom_type_script = "uid://bpwehx8bnkryt"
+
+[node name="IsoObjectNew" type="MeshInstance3D" parent="IsoWorldNew" unique_id=786445542 node_paths=PackedStringArray("world")]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+mesh = ExtResource("3_1lfju")
+surface_material_override/0 = SubResource("StandardMaterial3D_ys3va")
+script = ExtResource("4_ys3va")
+texture = ExtResource("5_dhy8q")
+world = NodePath("..")
+metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="IsoWorldNew" unique_id=838321927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.447129, 0)
+
+[node name="IdWorld" type="SubViewport" parent="." unique_id=1585648570]
+size = Vector2i(128, 128)
+render_target_update_mode = 4

@@ -18,8 +18,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	
-	
-	
 	var w = 128
 	var h = 128
 	var im : Image = Image.create_empty(w,h,false,Image.FORMAT_RGBA8)
@@ -29,9 +27,7 @@ func _process(_delta: float) -> void:
 	var obj_im := obj_tex.get_image()
 	for x in range(w):
 		for y in range(h):
-			var x_conv = roundi((float(x)+.5)/w*id_im.get_size().x)
-			var y_conv = roundi((float(y)+.5)/h*id_im.get_size().y)
-			var col = id_im.get_pixel(x_conv,y_conv)
+			var col = id_im.get_pixel(x,y)
 			im.set_pixel(x,y,col)
 			if col == Color.RED:
 				var origin := camera.unproject_position(objarray[0].position)
@@ -40,8 +36,8 @@ func _process(_delta: float) -> void:
 				var tex_pos = Vector2(x,y)-Vector2(origin_conv_x,origin_conv_y)+.5*Vector2(obj_im.get_size())
 				if 0 <= tex_pos.x and tex_pos.x < obj_im.get_size().x and 0 <= tex_pos.y and tex_pos.y < obj_im.get_size().y:
 					im.set_pixel(x,y,obj_im.get_pixelv(Vector2i(tex_pos)))
-				if x == origin_conv_x and y == origin_conv_y:
-					im.set_pixel(x,y,Color.BLACK)
+				#if x == origin_conv_x and y == origin_conv_y:
+				#	im.set_pixel(x,y,Color.BLACK)
 			if col == Color.GREEN:
 				var origin := camera.unproject_position(objarray[1].position)
 				var origin_conv_x = roundi(origin.x/world.size.x*w)
@@ -57,7 +53,7 @@ func _process(_delta: float) -> void:
 				if 0 <= tex_pos.x and tex_pos.x < obj_im.get_size().x and 0 <= tex_pos.y and tex_pos.y < obj_im.get_size().y:
 					im.set_pixel(x,y,obj_im.get_pixelv(Vector2i(tex_pos)))
 			col = im.get_pixel(x,y)
-			col *= dif_im.get_pixel(x_conv,y_conv)
+			col *= dif_im.get_pixel(x,y)
 			im.set_pixel(x,y,col)
 	tex.texture = ImageTexture.create_from_image(im)
 	tex.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
@@ -68,6 +64,7 @@ func _process(_delta: float) -> void:
 	var translate_dist_x = .03125
 	var translate_dist_y = .03608
 	var translate_dist_z = .0625
+	
 	if Input.is_action_just_pressed("move_up"):
 		#camera.translate_object_local(Vector3(0,move_dist,0))
 		#camera_clone.translate_object_local(Vector3(0,move_dist,0))

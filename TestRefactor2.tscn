@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fvnbwd0n8qba" path="res://test_refactor_2.gd" id="1_5nwhh"]
 [ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001.png" id="2_nw0oa"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
-size = Vector3(0.707, 0.707, 0.707)
+[ext_resource type="BoxMesh" uid="uid://dydewwnwhsba6" path="res://new_box_mesh.tres" id="3_nw0oa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
 shading_mode = 0
@@ -33,7 +31,7 @@ environment = SubResource("Environment_rp5ec")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcnqv"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf5fn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7numd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
 
@@ -59,11 +57,12 @@ expand_mode = 2
 
 [node name="SubViewport2" type="SubViewport" parent="." unique_id=168962282]
 handle_input_locally = false
+size = Vector2i(128, 128)
 render_target_update_mode = 4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport2" unique_id=183618035]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
-mesh = SubResource("BoxMesh_g4v7s")
+mesh = ExtResource("3_nw0oa")
 surface_material_override/0 = SubResource("StandardMaterial3D_g4v7s")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport2" unique_id=755961825]
@@ -75,23 +74,24 @@ size = 4.0
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewport2" unique_id=1590019831]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 visible = false
-mesh = SubResource("BoxMesh_g4v7s")
+mesh = ExtResource("3_nw0oa")
 surface_material_override/0 = SubResource("StandardMaterial3D_d0u6y")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewport2" unique_id=917336232]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1.5)
 visible = false
-mesh = SubResource("BoxMesh_g4v7s")
+mesh = ExtResource("3_nw0oa")
 surface_material_override/0 = SubResource("StandardMaterial3D_3gngh")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1827669948]
 own_world_3d = true
 world_3d = SubResource("World3D_wpcxr")
+size = Vector2i(128, 128)
 render_target_update_mode = 4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport" unique_id=1450333229]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
-mesh = SubResource("BoxMesh_g4v7s")
+mesh = ExtResource("3_nw0oa")
 surface_material_override/0 = SubResource("StandardMaterial3D_fcnqv")
 
 [node name="Sprite3D" type="Sprite3D" parent="SubViewport/MeshInstance3D" unique_id=1803087352]
@@ -109,8 +109,8 @@ size = 4.0
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SubViewport" unique_id=1359981847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 visible = false
-mesh = SubResource("BoxMesh_g4v7s")
-surface_material_override/0 = SubResource("StandardMaterial3D_yf5fn")
+mesh = ExtResource("3_nw0oa")
+surface_material_override/0 = SubResource("StandardMaterial3D_7numd")
 
 [node name="Sprite3D" type="Sprite3D" parent="SubViewport/MeshInstance3D2" unique_id=634123883]
 transform = Transform3D(3.1289475, -1.5644737, 2.709748, 0, 3.8321626, 2.2125, -3.1289475, -1.5644737, 2.709748, 0.5, 0.5, 0.5)
@@ -121,7 +121,7 @@ texture = ExtResource("2_nw0oa")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewport" unique_id=440149602]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1.5)
 visible = false
-mesh = SubResource("BoxMesh_g4v7s")
+mesh = ExtResource("3_nw0oa")
 surface_material_override/0 = SubResource("StandardMaterial3D_57qmd")
 
 [node name="Sprite3D" type="Sprite3D" parent="SubViewport/MeshInstance3D3" unique_id=1038091320]
@@ -129,11 +129,3 @@ transform = Transform3D(3.1289475, -1.5644737, 2.709748, 0, 3.8321626, 2.2125, -
 visible = false
 texture_filter = 0
 texture = ExtResource("2_nw0oa")
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=909101148]
-visible = false
-layout_mode = 0
-offset_left = 640.0
-offset_top = 138.0
-offset_right = 680.0
-offset_bottom = 178.0
