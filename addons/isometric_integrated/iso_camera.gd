@@ -1,6 +1,6 @@
 class_name IsoCamera extends Camera3D
 
-@export var world : IsoWorld
+var world : IsoWorld
 
 var clone : IsoCameraClone
 
@@ -23,6 +23,13 @@ class IsoCameraClone extends Camera3D:
 func _ready() -> void:
 	projection = Camera3D.PROJECTION_ORTHOGONAL
 	rotation = Vector3(deg_to_rad(-30),0,0)
+	
+	# Return quietly if world is not yet set
+	if world == null:
+		world = get_viewport()
+	if world is not IsoWorld:
+		push_warning("An IsoCamera was added to the tree without a parent IsoWorld. It must be initialized manually.")
+		return
 	
 	size = float(world.size.y) / world.pixels_per_unit
 	keep_aspect = Camera3D.KEEP_HEIGHT

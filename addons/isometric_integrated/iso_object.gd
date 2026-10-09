@@ -16,7 +16,7 @@ var image : Image
 
 @export var texture_origin : Vector2i
 
-@export var world : IsoWorld
+var world : IsoWorld
 
 var id_clone : MeshInstance3D = null
 var id : int = 0
@@ -54,7 +54,9 @@ class IdClone extends MeshInstance3D:
 func _ready() -> void:
 	# Return quietly if world is not yet set
 	if world == null:
-		push_warning("An IsoObjectNew was added to the tree without a set IsoWorld. It must be initialized manually.")
+		world = get_viewport()
+	if world is not IsoWorld:
+		push_warning("An IsoObject was added to the tree without a parent IsoWorld. It must be initialized manually.")
 		return
 	
 	id = world.get_valid_id()

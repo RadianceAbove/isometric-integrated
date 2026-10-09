@@ -28,7 +28,7 @@ func get_valid_id() -> int:
 	next_valid_id += 1
 	return out
 
-func index_object(object : IsoObjectNew):
+func index_object(object : IsoObject):
 	objects_dict[object.id] = object
 
 # Called when the node enters the scene tree for the first time.
