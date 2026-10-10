@@ -26,7 +26,10 @@ func _ready() -> void:
 	
 	# Return quietly if world is not yet set
 	if world == null:
-		world = get_viewport()
+		var p = get_parent()
+		while p is not IsoWorld and p != null:
+			p = p.get_parent()
+		world = p
 	if world is not IsoWorld:
 		push_warning("An IsoCamera was added to the tree without a parent IsoWorld. It must be initialized manually.")
 		return
@@ -36,7 +39,6 @@ func _ready() -> void:
 	
 	clone = IsoCameraClone.new()
 	clone.clone = self
-	world.id_world.add_child(clone)
 	
 
 # Lock camera movement to ensure consistent display.

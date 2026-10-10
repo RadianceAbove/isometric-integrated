@@ -6,18 +6,10 @@
 [ext_resource type="Resource" uid="uid://dt7rh6k8clk1a" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tres" id="4_0kjl6"]
 [ext_resource type="Script" uid="uid://cv0xnfjplhp6u" path="res://addons/isometric_integrated/core_objects/iso_object.gd" id="5_0kjl6"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mfba1"]
+[sub_resource type="Environment" id="Environment_d0u6y"]
 
-[sub_resource type="Sky" id="Sky_ys3va"]
-sky_material = SubResource("ProceduralSkyMaterial_mfba1")
-
-[sub_resource type="Environment" id="Environment_mfba1"]
-background_mode = 2
-background_color = Color(0.8980392, 0, 0, 1)
-sky = SubResource("Sky_ys3va")
-
-[sub_resource type="World3D" id="World3D_ys3va"]
-environment = SubResource("Environment_mfba1")
+[sub_resource type="World3D" id="World3D_g4v7s"]
+environment = SubResource("Environment_d0u6y")
 
 [sub_resource type="BoxMesh" id="BoxMesh_exktf"]
 size = Vector3(0.707, 0.55, 0.707)
@@ -39,15 +31,12 @@ offset_right = 512.0
 offset_bottom = 512.0
 expand_mode = 2
 
-[node name="IsoWorld" type="SubViewport" parent="." unique_id=814665925 node_paths=PackedStringArray("id_world", "active_camera", "display")]
-world_3d = SubResource("World3D_ys3va")
-size = Vector2i(128, 128)
-render_target_update_mode = 4
+[node name="IsoWorld" type="Node3D" parent="." unique_id=1423541991 node_paths=PackedStringArray("active_camera", "display")]
 script = ExtResource("1_0kjl6")
-id_world = NodePath("../IdWorld")
+size = Vector2i(128, 128)
+world_3d = SubResource("World3D_g4v7s")
 active_camera = NodePath("IsoCamera")
 display = NodePath("../TextureRect")
-neutral_color = Color(1, 1, 1, 1)
 metadata/_custom_type_script = "uid://c2l2a380hs0fo"
 
 [node name="IsoCamera" type="Camera3D" parent="IsoWorld" unique_id=676974562]
@@ -75,7 +64,3 @@ mesh = SubResource("BoxMesh_v2gxb")
 script = ExtResource("5_0kjl6")
 tile = ExtResource("4_0kjl6")
 metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
-
-[node name="IdWorld" type="SubViewport" parent="." unique_id=1585648570]
-size = Vector2i(128, 128)
-render_target_update_mode = 4

@@ -30,6 +30,7 @@ class IdClone extends MeshInstance3D:
 		var id_b = float(floori(float(clone.id)/(256*256)))/256
 		color = Color(id_r,id_g,id_b)
 		material_override.albedo_color = color
+		position = clone.world.snap_position(clone.position)
 	
 	func _process(_delta: float) -> void:
 		mesh = clone.mesh
@@ -44,7 +45,10 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		# Return quietly if world is not yet set
 		if world == null:
-			world = get_viewport()
+			var p = get_parent()
+			while p is not IsoWorld and p != null:
+				p = p.get_parent()
+			world = p
 		if world is not IsoWorld:
 			push_warning("An IsoObject was added to the tree without a parent IsoWorld. It must be initialized manually.")
 			return
@@ -54,6 +58,5 @@ func _ready() -> void:
 		
 		clone = IdClone.new()
 		clone.clone = self
-		world.id_world.add_child(clone)
 		id_color = clone.color
-		position = world.snap_position(position)
+		global_position = world.snap_position(global_position)

@@ -1,9 +1,12 @@
-class_name IsoWorld extends SubViewport
+class_name IsoWorld extends Node3D
 
 var next_valid_id : int = 1
 var objects_dict : Dictionary[int, IsoObject]
-@export var id_world : SubViewport
+var view_world : SubViewport
+var id_world : SubViewport
 var current_image : Image
+@export var size : Vector2i = Vector2i(512,512)
+@export var world_3d : World3D
 
 @export var active_camera : IsoCamera
 @export var display : TextureRect
@@ -33,15 +36,35 @@ func index_object(object : IsoObject):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var child_cache = get_children()
+	view_world = SubViewport.new()
+	add_child(view_world)
+	view_world.size = size
+	view_world.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	if world_3d != null:
+		view_world.world_3d = world_3d
+	
+	id_world = SubViewport.new()
+	add_child(id_world)
 	id_world.size = size
+	id_world.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	
+	for child in child_cache:
+		child.reparent(view_world)
+		if child is IsoObject:
+			id_world.add_child(child.clone)
+		if child is IsoCamera:
+			id_world.add_child(child.clone)
+	
+	
+	
 	current_image = Image.create_empty(size.x,size.y,false,Image.FORMAT_RGBA8)
-	render_target_update_mode = SubViewport.UPDATE_ALWAYS
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	await RenderingServer.frame_post_draw
 	var id_im : Image = id_world.get_texture().get_image()
-	var dif_im : Image = get_texture().get_image()
+	var dif_im : Image = view_world.get_texture().get_image()
 	for x in range(size.x):
 		for y in range(size.y):
 			var pix_col := neutral_color
