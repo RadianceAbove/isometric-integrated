@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bqh53xamyh70p"]
+
+[ext_resource type="Material" uid="uid://d1tthtiqcku1t" path="res://addons/isometric_integrated/core_objects/iso_mesh_aligner.tres" id="1_x5xig"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[node name="Node3D" type="Node3D" unique_id=871872081]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=428600874]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0754986)
+current = true
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." unique_id=1608691908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5444028)
+mesh = SubResource("BoxMesh_g4v7s")
+material = ExtResource("1_x5xig")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=284337283]
+transform = Transform3D(0.68369913, 0, -0.729764, 0, 1, 0, 0.729764, 0, 0.68369913, 0, 0, 0)

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://d1tthtiqcku1t"]
+
+[ext_resource type="Shader" uid="uid://c7jlbs0fgueou" path="res://addons/isometric_integrated/core_objects/iso_mesh_alignment.gdshader" id="1_cwmeq"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_cwmeq")
+shader_parameter/pixel_size = Vector3(1, 1, 1)

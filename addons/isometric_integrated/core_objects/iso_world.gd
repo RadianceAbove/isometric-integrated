@@ -12,6 +12,8 @@ var current_image : Image
 @export var display : TextureRect
 @export var neutral_color : Color = Color(0.25, 0.25, 0.25, 1.0)
 
+var clone_list : Array[Node3D] = []
+
 @export var pixels_per_unit : int = 32:
 	set(value):
 		pixels_per_unit = value
@@ -23,6 +25,12 @@ var current_image : Image
 # The width of pixels in worldspace
 var pixel_widths : Vector3 = Vector3(1.0/32,sqrt(3)*(2.0/3)/32.0,2.0/32)
 
+static func get_world(node : Node):
+	var p = node.get_parent()
+	while p is not IsoWorld and p != null:
+		p = p.get_parent()
+	return p
+
 # Get a valid id for a new IsoObject
 func get_valid_id() -> int:
 	while objects_dict.get(next_valid_id) != null:
@@ -33,6 +41,9 @@ func get_valid_id() -> int:
 
 func index_object(object : IsoObject):
 	objects_dict[object.id] = object
+
+func add_clone(clone : Node3D) -> void:
+	id_world.add_child(clone)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -51,10 +62,8 @@ func _ready() -> void:
 	
 	for child in child_cache:
 		child.reparent(view_world)
-		if child is IsoObject:
-			id_world.add_child(child.clone)
-		if child is IsoCamera:
-			id_world.add_child(child.clone)
+	for clone in clone_list:
+		add_clone(clone)
 	
 	
 	
@@ -73,7 +82,7 @@ func _process(_delta: float) -> void:
 			var obj : IsoObject = objects_dict.get(id)
 			if obj != null and obj.tile != null:
 				var obj_im : Image = obj.tile.image
-				var origin : Vector2 = active_camera.unproject_position(obj.position)
+				var origin : Vector2 = active_camera.unproject_position(obj.global_position)
 				var origin_conv_x = roundi(origin.x) + obj.tile.texture_offset.x
 				var origin_conv_y = roundi(origin.y) - obj.tile.texture_offset.y
 				var tex_pos = Vector2(x,y)-Vector2(origin_conv_x,origin_conv_y)+.5*Vector2(obj_im.get_size())

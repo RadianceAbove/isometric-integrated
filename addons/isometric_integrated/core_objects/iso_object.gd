@@ -35,6 +35,7 @@ class IdClone extends MeshInstance3D:
 	func _process(_delta: float) -> void:
 		mesh = clone.mesh
 		global_transform = clone.global_transform
+		global_position = clone.world.snap_position(clone.global_position)
 	
 	static func color_to_id(col : Color) -> int:
 		return floori(col.r*256) + floori(col.g * 256 * 256) + floori(col.b * 256 * 256 * 256)
@@ -44,12 +45,8 @@ class IdClone extends MeshInstance3D:
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		# Return quietly if world is not yet set
+		world = IsoWorld.get_world(self)
 		if world == null:
-			var p = get_parent()
-			while p is not IsoWorld and p != null:
-				p = p.get_parent()
-			world = p
-		if world is not IsoWorld:
 			push_warning("An IsoObject was added to the tree without a parent IsoWorld. It must be initialized manually.")
 			return
 		
@@ -59,4 +56,9 @@ func _ready() -> void:
 		clone = IdClone.new()
 		clone.clone = self
 		id_color = clone.color
-		global_position = world.snap_position(global_position)
+		world.clone_list.append(clone)
+		
+		# Load alignment material
+		var mat : ShaderMaterial = load("res://addons/isometric_integrated/core_objects/iso_mesh_aligner.tres")
+		set_surface_override_material(0,mat)
+		mat.set_shader_parameter("pixel_size",world.pixel_widths)

@@ -10,7 +10,7 @@ class IsoCameraClone extends Camera3D:
 	
 	func _ready() -> void:
 		projection = clone.projection
-		transform = clone.transform
+		global_transform = clone.global_transform
 		
 		size = clone.size
 		keep_aspect = clone.keep_aspect
@@ -18,19 +18,15 @@ class IsoCameraClone extends Camera3D:
 	func _process(_delta: float) -> void:
 		global_transform = clone.global_transform
 		size = clone.size
-		position = clone.world.snap_position(position)
+		global_position = clone.world.snap_position(global_position)
 
 func _ready() -> void:
 	projection = Camera3D.PROJECTION_ORTHOGONAL
 	rotation = Vector3(deg_to_rad(-30),0,0)
 	
 	# Return quietly if world is not yet set
+	world = IsoWorld.get_world(self)
 	if world == null:
-		var p = get_parent()
-		while p is not IsoWorld and p != null:
-			p = p.get_parent()
-		world = p
-	if world is not IsoWorld:
 		push_warning("An IsoCamera was added to the tree without a parent IsoWorld. It must be initialized manually.")
 		return
 	
@@ -39,9 +35,4 @@ func _ready() -> void:
 	
 	clone = IsoCameraClone.new()
 	clone.clone = self
-	
-
-# Lock camera movement to ensure consistent display.
-func _process(_delta: float) -> void:
-	
-	position = world.snap_position(position)
+	world.clone_list.append(clone)
