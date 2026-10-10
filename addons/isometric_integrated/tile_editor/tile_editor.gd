@@ -2,7 +2,7 @@ extends Control
 
 @onready var selector : TabContainer = self.find_child("TileSelector")
 @onready var world : IsoWorld = self.find_child("IsoWorld")
-@onready var viewer : IsoViewer = self.find_child("IsoViewer")
+@onready var viewer : TextureRect = self.find_child("IsoViewer")
 var preview_node : IsoObject
 
 @export var tile_x : int = 16

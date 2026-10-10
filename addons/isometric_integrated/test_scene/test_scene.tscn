@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b186tgdl25kvk"]
 
-[ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/iso_world.gd" id="1_0kjl6"]
-[ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/iso_camera.gd" id="2_exktf"]
+[ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/core_objects/iso_world.gd" id="1_0kjl6"]
+[ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/core_objects/iso_camera.gd" id="2_exktf"]
 [ext_resource type="PackedScene" uid="uid://lhl2p17wm6ud" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tscn" id="3_u8ffk"]
 [ext_resource type="Script" uid="uid://cxafyi5q1d3yg" path="res://addons/isometric_integrated/test_scene/test_object.gd" id="4_esfpm"]
 
