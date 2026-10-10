@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="IsoTile" format=3 uid="uid://dt7rh6k8clk1a"]
+
+[ext_resource type="Script" uid="uid://8l8o53xmy4et" path="res://addons/isometric_integrated/core_objects/iso_tile.gd" id="1_7w8ek"]
+[ext_resource type="BoxMesh" uid="uid://cdl15f4x3mixy" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/32x32box.tres" id="1_17b28"]
+[ext_resource type="Texture2D" uid="uid://bfwffk676oi25" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/Sprite-0001.png" id="3_6j6oe"]
+
+[resource]
+script = ExtResource("1_7w8ek")
+texture = ExtResource("3_6j6oe")
+mesh = ExtResource("1_17b28")
+metadata/_custom_type_script = "uid://8l8o53xmy4et"

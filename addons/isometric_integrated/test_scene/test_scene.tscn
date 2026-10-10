@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/core_objects/iso_world.gd" id="1_0kjl6"]
 [ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/core_objects/iso_camera.gd" id="2_exktf"]
-[ext_resource type="PackedScene" uid="uid://lhl2p17wm6ud" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tscn" id="3_u8ffk"]
-[ext_resource type="Script" uid="uid://cxafyi5q1d3yg" path="res://addons/isometric_integrated/test_scene/test_object.gd" id="4_esfpm"]
+[ext_resource type="Script" uid="uid://cxafyi5q1d3yg" path="res://addons/isometric_integrated/test_scene/test_object.gd" id="3_u8ffk"]
+[ext_resource type="Resource" uid="uid://dt7rh6k8clk1a" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tres" id="4_0kjl6"]
+[ext_resource type="Script" uid="uid://cv0xnfjplhp6u" path="res://addons/isometric_integrated/core_objects/iso_object.gd" id="5_0kjl6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mfba1"]
 
@@ -17,6 +18,12 @@ sky = SubResource("Sky_ys3va")
 
 [sub_resource type="World3D" id="World3D_ys3va"]
 environment = SubResource("Environment_mfba1")
+
+[sub_resource type="BoxMesh" id="BoxMesh_exktf"]
+size = Vector3(0.707, 0.55, 0.707)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v2gxb"]
+size = Vector3(0.707, 0.55, 0.707)
 
 [node name="TestRefactor3" type="Control" unique_id=1789679881]
 layout_mode = 3
@@ -55,11 +62,19 @@ metadata/_custom_type_script = "uid://bpwehx8bnkryt"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.447129, 0)
 shadow_enabled = true
 
-[node name="TestBox" parent="IsoWorld" unique_id=317600917 instance=ExtResource("3_u8ffk")]
-script = ExtResource("4_esfpm")
+[node name="IsoObject" type="MeshInstance3D" parent="IsoWorld" unique_id=1818919315]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+mesh = SubResource("BoxMesh_exktf")
+script = ExtResource("3_u8ffk")
+tile = ExtResource("4_0kjl6")
+metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
 
-[node name="TestBox2" parent="IsoWorld" unique_id=125078738 instance=ExtResource("3_u8ffk")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -0.08844805, 0.96190524, 0)
+[node name="IsoObject2" type="MeshInstance3D" parent="IsoWorld" unique_id=370025613]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0.52, 0)
+mesh = SubResource("BoxMesh_v2gxb")
+script = ExtResource("5_0kjl6")
+tile = ExtResource("4_0kjl6")
+metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
 
 [node name="IdWorld" type="SubViewport" parent="." unique_id=1585648570]
 size = Vector2i(128, 128)

@@ -1,20 +1,10 @@
+@tool
 class_name IsoObject extends MeshInstance3D
 
-@export var texture : CompressedTexture2D :
+@export var tile : IsoTile:
 	set(value):
-		var s := value.get_size()
-		if floori(s.x) % 2 != 0:
-			push_warning("The width of an IsoObjectNew Texture must be even.")
-			return
-		if floori(s.y) % 2 != 0:
-			push_warning("The height of an IsoObjectNew Texture must be even.")
-			return
-		image = value.get_image()
-		texture = value
-
-var image : Image
-
-@export var texture_offset : Vector2i
+		mesh = value.mesh.duplicate()
+		tile = value
 
 var world : IsoWorld
 
@@ -23,7 +13,6 @@ var id : int = 0
 var id_color : Color = Color.BLACK
 
 var clone : IdClone
-
 
 # Clone object that shadows the movements of the IsoObjectNew for id depth
 class IdClone extends MeshInstance3D:
@@ -52,20 +41,19 @@ class IdClone extends MeshInstance3D:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Return quietly if world is not yet set
-	if world == null:
-		world = get_viewport()
-	if world is not IsoWorld:
-		push_warning("An IsoObject was added to the tree without a parent IsoWorld. It must be initialized manually.")
-		return
-	
-	id = world.get_valid_id()
-	world.index_object(self)
-	
-	clone = IdClone.new()
-	clone.clone = self
-	world.id_world.add_child(clone)
-	id_color = clone.color
-
-func _process(_delta: float) -> void:
-	position = world.snap_position(position)
+	if not Engine.is_editor_hint():
+		# Return quietly if world is not yet set
+		if world == null:
+			world = get_viewport()
+		if world is not IsoWorld:
+			push_warning("An IsoObject was added to the tree without a parent IsoWorld. It must be initialized manually.")
+			return
+		
+		id = world.get_valid_id()
+		world.index_object(self)
+		
+		clone = IdClone.new()
+		clone.clone = self
+		world.id_world.add_child(clone)
+		id_color = clone.color
+		position = world.snap_position(position)

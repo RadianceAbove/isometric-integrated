@@ -48,11 +48,11 @@ func _process(_delta: float) -> void:
 			var id_col := id_im.get_pixel(x,y)
 			var id : int = IsoObject.IdClone.color_to_id(id_col)
 			var obj : IsoObject = objects_dict.get(id)
-			if obj != null:
-				var obj_im : Image = obj.image
+			if obj != null and obj.tile != null:
+				var obj_im : Image = obj.tile.image
 				var origin : Vector2 = active_camera.unproject_position(obj.position)
-				var origin_conv_x = roundi(origin.x) + obj.texture_offset.x
-				var origin_conv_y = roundi(origin.y) - obj.texture_offset.y
+				var origin_conv_x = roundi(origin.x) + obj.tile.texture_offset.x
+				var origin_conv_y = roundi(origin.y) - obj.tile.texture_offset.y
 				var tex_pos = Vector2(x,y)-Vector2(origin_conv_x,origin_conv_y)+.5*Vector2(obj_im.get_size())
 				if 0 <= tex_pos.x and tex_pos.x < obj_im.get_size().x and 0 <= tex_pos.y and tex_pos.y < obj_im.get_size().y:
 					pix_col = obj_im.get_pixelv(Vector2i(tex_pos))

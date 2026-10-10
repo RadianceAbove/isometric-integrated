@@ -9,7 +9,7 @@ func _ready() -> void:
 	name = category.name
 	for t in category.tiles:
 		var icon : TextureRect = tile_display_preset.instantiate()
-		icon.texture = t.base_texture
+		icon.texture = t.texture
 		icon.gui_input.connect(_on_tile_event.bind(t))
 		grid.add_child(icon)
 
