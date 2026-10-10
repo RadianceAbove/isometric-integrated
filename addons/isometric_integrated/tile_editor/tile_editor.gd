@@ -2,7 +2,7 @@ extends Control
 
 @onready var selector : TabContainer = self.find_child("TileSelector")
 @onready var world : IsoWorld = self.find_child("IsoWorld")
-@onready var viewer : IsoViewer = self.find_child("IsoViewer")
+@onready var viewer : TextureRect = self.find_child("IsoViewer")
 var preview_node : IsoObject
 
 @export var tile_x : int = 16
@@ -29,7 +29,10 @@ func _lock_to_grid(position : Vector3i) -> Vector3i:
 
 func _on_viewer_input(event : InputEvent) -> void:
 	if event.is_action_pressed("mouse_button_left"):
-		world.add_child(preview_node.duplicate())
+		var obj := IsoObject.new()
+		obj.tile = preview_node.tile
+		obj.position = preview_node.position
+		world.add_child(obj)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

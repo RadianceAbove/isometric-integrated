@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c54ipc63p4s4d" path="res://addons/isometric_integrated/tile_editor/tile_selector.gd" id="1_1uk8b"]
 [ext_resource type="Script" uid="uid://b6i55lj772pnk" path="res://addons/isometric_integrated/tile_editor/tile_editor.gd" id="1_wq0j8"]
-[ext_resource type="Script" uid="uid://u36xpf11sqph" path="res://addons/isometric_integrated/tile_editor/iso_tile_editor_category.gd" id="2_6hme6"]
-[ext_resource type="Resource" uid="uid://duihstuo60t8b" path="res://addons/isometric_integrated/test_assets/tiles/test_category.tres" id="3_prwt0"]
-[ext_resource type="Script" uid="uid://qmcrer8tuku3" path="res://addons/isometric_integrated/iso_objects/iso_viewer.gd" id="4_gsw16"]
-[ext_resource type="Script" uid="uid://dquv3r2giq3yf" path="res://addons/isometric_integrated/iso_objects/iso_world.gd" id="5_wq0j8"]
-[ext_resource type="Script" uid="uid://dil3heb15odf6" path="res://addons/isometric_integrated/iso_objects/iso_camera.gd" id="6_aujoc"]
+[ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/core_objects/iso_world.gd" id="3_prwt0"]
+[ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/core_objects/iso_camera.gd" id="4_v2x8b"]
+
+[sub_resource type="Resource" id="Resource_gsw16"]
+metadata/__load_path__ = "res://addons/isometric_integrated/test_assets/tiles/test_category.tres"
 
 [node name="TileEditor" type="Control" unique_id=892829453]
 layout_mode = 3
@@ -18,7 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_wq0j8")
 tile_y = 16
 
-[node name="IsoViewer" type="TextureRect" parent="." unique_id=261027567 node_paths=PackedStringArray("camera", "world")]
+[node name="IsoViewer" type="TextureRect" parent="." unique_id=261027567]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,10 +28,6 @@ offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 4
-script = ExtResource("4_gsw16")
-camera = NodePath("../IsoWorld/IsoCamera")
-world = NodePath("../IsoWorld")
-metadata/_custom_type_script = "uid://qmcrer8tuku3"
 
 [node name="TileSelector" type="TabContainer" parent="." unique_id=1748534577]
 layout_mode = 1
@@ -42,17 +38,20 @@ offset_left = -320.0
 offset_bottom = 279.0
 grow_horizontal = 0
 script = ExtResource("1_1uk8b")
-tile_categories = Array[ExtResource("2_6hme6")]([ExtResource("3_prwt0")])
+tile_categories = [SubResource("Resource_gsw16")]
 
-[node name="IsoWorld" type="Node" parent="." unique_id=928845974]
-script = ExtResource("5_wq0j8")
-ambient_light = Color(1, 1, 1, 1)
-metadata/_custom_type_script = "uid://dquv3r2giq3yf"
+[node name="IsoWorld" type="SubViewport" parent="." unique_id=370983285 node_paths=PackedStringArray("id_world", "display")]
+script = ExtResource("3_prwt0")
+id_world = NodePath("../IsoId")
+display = NodePath("../IsoViewer")
+metadata/_custom_type_script = "uid://c2l2a380hs0fo"
 
-[node name="IsoCamera" type="Node" parent="IsoWorld" unique_id=1289132136 node_paths=PackedStringArray("collection")]
-script = ExtResource("6_aujoc")
-width = 256
-height = 256
-collection = NodePath("..")
-position = Vector3i(0, -64, 32)
-metadata/_custom_type_script = "uid://dil3heb15odf6"
+[node name="IsoCamera" type="Camera3D" parent="IsoWorld" unique_id=1527338086]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 1.4714414, 1.9509544)
+script = ExtResource("4_v2x8b")
+metadata/_custom_type_script = "uid://bpwehx8bnkryt"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="IsoWorld" unique_id=1545735945]
+transform = Transform3D(0.75264525, -0.36532417, 0.54778045, 0, 0.8319541, 0.55484444, -0.6584263, -0.41760102, 0.62616634, 0.7228887, 0, 0)
+
+[node name="IsoId" type="SubViewport" parent="." unique_id=875445709]

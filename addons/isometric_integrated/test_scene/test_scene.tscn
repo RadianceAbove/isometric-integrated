@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://b186tgdl25kvk"]
+
+[ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/core_objects/iso_world.gd" id="1_0kjl6"]
+[ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/core_objects/iso_camera.gd" id="2_exktf"]
+[ext_resource type="Script" uid="uid://cxafyi5q1d3yg" path="res://addons/isometric_integrated/test_scene/test_object.gd" id="3_u8ffk"]
+[ext_resource type="Resource" uid="uid://dt7rh6k8clk1a" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tres" id="4_0kjl6"]
+[ext_resource type="Script" uid="uid://cv0xnfjplhp6u" path="res://addons/isometric_integrated/core_objects/iso_object.gd" id="5_0kjl6"]
+
+[sub_resource type="Environment" id="Environment_d0u6y"]
+
+[sub_resource type="World3D" id="World3D_g4v7s"]
+environment = SubResource("Environment_d0u6y")
+
+[sub_resource type="BoxMesh" id="BoxMesh_exktf"]
+size = Vector3(0.707, 0.55, 0.707)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v2gxb"]
+size = Vector3(0.707, 0.55, 0.707)
+
+[node name="TestRefactor3" type="Control" unique_id=1789679881]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2028153645]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+expand_mode = 2
+
+[node name="IsoWorld" type="Node3D" parent="." unique_id=1423541991 node_paths=PackedStringArray("active_camera", "display")]
+script = ExtResource("1_0kjl6")
+size = Vector2i(128, 128)
+world_3d = SubResource("World3D_g4v7s")
+active_camera = NodePath("IsoCamera")
+display = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://c2l2a380hs0fo"
+
+[node name="IsoCamera" type="Camera3D" parent="IsoWorld" unique_id=676974562]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 2.4, 3)
+projection = 1
+current = true
+size = 4.0
+script = ExtResource("2_exktf")
+metadata/_custom_type_script = "uid://bpwehx8bnkryt"
+
+[node name="OmniLight3D" type="OmniLight3D" parent="IsoWorld" unique_id=838321927]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.447129, 0)
+shadow_enabled = true
+
+[node name="IsoObject" type="MeshInstance3D" parent="IsoWorld" unique_id=1818919315]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0, 0)
+mesh = SubResource("BoxMesh_exktf")
+script = ExtResource("3_u8ffk")
+tile = ExtResource("4_0kjl6")
+metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
+
+[node name="IsoObject2" type="MeshInstance3D" parent="IsoWorld" unique_id=370025613]
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, 0, 0.52, 0)
+mesh = SubResource("BoxMesh_v2gxb")
+script = ExtResource("5_0kjl6")
+tile = ExtResource("4_0kjl6")
+metadata/_custom_type_script = "uid://cv0xnfjplhp6u"
