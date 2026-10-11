@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="IsometricIntegrated"
+config/description="This project contains examples of the isometric-integrated plugin, built to consistently render isometric object in 3d space."
+config/version="1.0"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://fd0ktn1h4alm"
 
 [display]
 

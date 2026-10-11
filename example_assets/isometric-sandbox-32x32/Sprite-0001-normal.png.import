@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdio6oo4c5xuo"
-path="res://.godot/imported/test_wall_west_diffuse.png-9da49b94911a8d23f9f0ccdbbffb41d6.ctex"
+uid="uid://b6164w7ajs03x"
+path="res://.godot/imported/Sprite-0001-normal.png-4e03f48ff97f254c16f90a8124bdf4cd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/isometric_integrated/test_assets/tiles/test_wall_west_diffuse.png"
-dest_files=["res://.godot/imported/test_wall_west_diffuse.png-9da49b94911a8d23f9f0ccdbbffb41d6.ctex"]
+source_file="res://example_assets/isometric-sandbox-32x32/Sprite-0001-normal.png"
+dest_files=["res://.godot/imported/Sprite-0001-normal.png-4e03f48ff97f254c16f90a8124bdf4cd.ctex"]
 
 [params]
 
