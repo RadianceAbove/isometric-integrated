@@ -21,11 +21,11 @@ func _ready() -> void:
 func _selection_changed(tile : IsoTile) -> void:
 	preview_node.set_tile(tile)
 
-func _lock_to_grid(position : Vector3i) -> Vector3i:
+func _lock_to_grid(position : Vector3) -> Vector3:
 	var x := snappedi(position.x,tile_x)
 	var y := snappedi(position.y,tile_y)
 	var z := snappedi(position.z,tile_z)
-	return Vector3i(x,y,z)
+	return Vector3(x,y,z)
 
 func _on_viewer_input(event : InputEvent) -> void:
 	if event.is_action_pressed("mouse_button_left"):
@@ -33,6 +33,10 @@ func _on_viewer_input(event : InputEvent) -> void:
 		obj.tile = preview_node.tile
 		obj.position = preview_node.position
 		world.add_child(obj)
+
+func _get_z_level_at_pos(pos : Vector2) -> float:
+	world.active_camera
+	return 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

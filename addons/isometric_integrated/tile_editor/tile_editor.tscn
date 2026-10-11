@@ -3,10 +3,15 @@
 [ext_resource type="Script" uid="uid://c54ipc63p4s4d" path="res://addons/isometric_integrated/tile_editor/tile_selector.gd" id="1_1uk8b"]
 [ext_resource type="Script" uid="uid://b6i55lj772pnk" path="res://addons/isometric_integrated/tile_editor/tile_editor.gd" id="1_wq0j8"]
 [ext_resource type="Script" uid="uid://c2l2a380hs0fo" path="res://addons/isometric_integrated/core_objects/iso_world.gd" id="3_prwt0"]
+[ext_resource type="Script" uid="uid://u36xpf11sqph" path="res://addons/isometric_integrated/tile_editor/iso_tile_editor_category.gd" id="3_wq0j8"]
+[ext_resource type="Script" uid="uid://8l8o53xmy4et" path="res://addons/isometric_integrated/core_objects/iso_tile.gd" id="4_aujoc"]
 [ext_resource type="Script" uid="uid://bpwehx8bnkryt" path="res://addons/isometric_integrated/core_objects/iso_camera.gd" id="4_v2x8b"]
+[ext_resource type="Resource" uid="uid://dt7rh6k8clk1a" path="res://addons/isometric_integrated/test_assets/isometric-sandbox-32x32/test_box.tres" id="5_71wso"]
 
-[sub_resource type="Resource" id="Resource_gsw16"]
-metadata/__load_path__ = "res://addons/isometric_integrated/test_assets/tiles/test_category.tres"
+[sub_resource type="Resource" id="Resource_prwt0"]
+script = ExtResource("3_wq0j8")
+tiles = Array[ExtResource("4_aujoc")]([ExtResource("5_71wso")])
+metadata/_custom_type_script = "uid://u36xpf11sqph"
 
 [node name="TileEditor" type="Control" unique_id=892829453]
 layout_mode = 3
@@ -38,11 +43,12 @@ offset_left = -320.0
 offset_bottom = 279.0
 grow_horizontal = 0
 script = ExtResource("1_1uk8b")
-tile_categories = [SubResource("Resource_gsw16")]
+tile_categories = Array[ExtResource("3_wq0j8")]([SubResource("Resource_prwt0")])
 
-[node name="IsoWorld" type="SubViewport" parent="." unique_id=370983285 node_paths=PackedStringArray("id_world", "display")]
+[node name="IsoWorld" type="Node3D" parent="." unique_id=2036874959 node_paths=PackedStringArray("active_camera", "display")]
+physics_interpolation_mode = 1
 script = ExtResource("3_prwt0")
-id_world = NodePath("../IsoId")
+active_camera = NodePath("IsoCamera")
 display = NodePath("../IsoViewer")
 metadata/_custom_type_script = "uid://c2l2a380hs0fo"
 
@@ -53,5 +59,3 @@ metadata/_custom_type_script = "uid://bpwehx8bnkryt"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="IsoWorld" unique_id=1545735945]
 transform = Transform3D(0.75264525, -0.36532417, 0.54778045, 0, 0.8319541, 0.55484444, -0.6584263, -0.41760102, 0.62616634, 0.7228887, 0, 0)
-
-[node name="IsoId" type="SubViewport" parent="." unique_id=875445709]
