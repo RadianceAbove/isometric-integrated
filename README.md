@@ -14,6 +14,7 @@ is to download this code, and add the isometric-integrated folder (found in the
 addons) folder of this repository) into the addons folder of your own project.
 
 For an explanation of the plugin's functionality and its creation, see 
-[my blog](https://radiance-creative.com/blog/) or check the documentation
-within the plugin. Most functionality should be pretty intuitive to use.g
+[my blog](https://radiance-creative.com/blog/), look at the example scene found
+in this repo, or check the documentation within the plugin. Most functionality 
+should be pretty intuitive to use.
  
